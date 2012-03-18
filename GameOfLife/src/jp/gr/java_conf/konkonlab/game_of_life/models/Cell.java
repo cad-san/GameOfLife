@@ -23,7 +23,9 @@ public class Cell {
 	}
 	
 	public void setGroup(int group) {
-		this.group = group;
+		if( status.equals(AliveCell) ) {
+			this.group = group;
+		}
 	}
 	
 	public int getGroup() {
