@@ -34,4 +34,9 @@ public class CellTest extends TestCase {
 		deadCell.setGroup(1); // ignored
 		assertEquals(0, deadCell.getGroup());
 	}
+	
+	public void testCreateNextGenerationBirth() throws Exception {
+		Cell nextGenCell = deadCell.createNextGeneration(3);
+		assertTrue(nextGenCell.equals(Cell.AliveCell));
+	}
 }

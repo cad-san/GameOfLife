@@ -32,4 +32,8 @@ public class Cell {
 		return group;
 	}
 
+	public Cell createNextGeneration(int numOfLivingNeighbors) {
+		return new Cell(AliveCell);
+	}
+
 }
