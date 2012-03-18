@@ -1,10 +1,12 @@
 package jp.gr.java_conf.konkonlab.game_of_life.models;
 
-public enum Cell {
-		AliveCell("ALIVE"), DeadCell("DEAD");
-		private String status;
+public class Cell {
+		public static final String AliveCell = "ALIVE";
+		public static final String DeadCell  = "DEAD";
+
+		private String status = DeadCell;
 		
-		private Cell(String status)
+		public Cell(String status)
 		{
 			this.status = status;
 		}
@@ -12,5 +14,10 @@ public enum Cell {
 		@Override
 		public String toString() {
 			return status;
+		}
+		
+		@Override
+		public boolean equals(Object another) {
+		return status.equals(another);
 		}
 }
