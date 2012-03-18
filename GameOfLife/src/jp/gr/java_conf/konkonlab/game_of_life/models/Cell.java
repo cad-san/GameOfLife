@@ -50,7 +50,13 @@ public class Cell {
 			}
 		}
 		else {
-			return createAliveCell();
+			if ( numOfLivingNeighbors <= 1 ) {
+				return createDeadCell();
+			}
+			else
+			{
+				return createAliveCell();
+			}
 		}
 	}
 
