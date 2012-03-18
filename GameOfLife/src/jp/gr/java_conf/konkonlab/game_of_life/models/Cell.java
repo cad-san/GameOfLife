@@ -5,6 +5,7 @@ public class Cell {
 		public static final String DeadCell  = "DEAD";
 
 		private String status = DeadCell;
+		private int group;
 		
 		public Cell(String status)
 		{
@@ -20,4 +21,13 @@ public class Cell {
 		public boolean equals(Object another) {
 		return status.equals(another);
 		}
+
+		public void setGroup(int group) {
+			this.group = group;
+		}
+
+		public int getGroup() {
+			return group;
+		}
+
 }

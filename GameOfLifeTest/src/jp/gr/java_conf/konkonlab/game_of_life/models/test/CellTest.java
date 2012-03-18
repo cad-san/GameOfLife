@@ -16,4 +16,11 @@ public class CellTest extends TestCase {
 		assertEquals("DEAD", cell.toString());
 		assertTrue(cell.equals(Cell.DeadCell));
 	}
+	
+	public void testGroupArive() throws Exception {
+		Cell cell = new Cell(Cell.AliveCell);
+		cell.setGroup(1);
+		assertEquals(1, cell.getGroup());
+	}
+	
 }
