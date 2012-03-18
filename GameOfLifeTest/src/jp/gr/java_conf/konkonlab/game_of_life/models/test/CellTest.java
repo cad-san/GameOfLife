@@ -35,6 +35,11 @@ public class CellTest extends TestCase {
 		assertEquals(0, deadCell.getGroup());
 	}
 	
+	public void testCreateNextGenerationStillDead() throws Exception {
+		Cell nextGenCell = deadCell.createNextGeneration(2);
+		assertTrue(nextGenCell.equals(Cell.DeadCell));
+	}
+	
 	public void testCreateNextGenerationBirth() throws Exception {
 		Cell nextGenCell = deadCell.createNextGeneration(3);
 		assertTrue(nextGenCell.equals(Cell.AliveCell));

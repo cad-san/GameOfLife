@@ -33,7 +33,17 @@ public class Cell {
 	}
 
 	public Cell createNextGeneration(int numOfLivingNeighbors) {
-		return new Cell(AliveCell);
+		if(status == DeadCell) {
+			if( numOfLivingNeighbors == 3 ) {
+				return new Cell(AliveCell);
+			}
+			else {
+				return new Cell(DeadCell);
+			}
+		}
+		else {
+			return null;
+		}
 	}
 
 }
