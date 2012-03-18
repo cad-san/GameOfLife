@@ -54,8 +54,7 @@ Androidで動作するライフゲームアプリです。
 * マップの1セルを表すクラス
 * prev/currの2つのマップがあるので、バリューオブジェクトとする。
  * 不変とするのは、セルの状態（生死/グループ/カラー）
-* enumを拡張した形で実装する。
- * AliveCell,DeadCellの2状態
+* AliveCell,DeadCellの2状態をコンストラクタでセットする
  * 値はStringで保持。AliveCell="ALIVE", DeadCell="DEAD"
 * createNextGeneration()メソッドで、該当セルの次の世代を生成する。
  * 該当セルの生死判定
