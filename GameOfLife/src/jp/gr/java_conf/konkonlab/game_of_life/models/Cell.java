@@ -50,7 +50,7 @@ public class Cell {
 			}
 		}
 		else {
-			if ( numOfLivingNeighbors <= 1 ) {
+			if ( numOfLivingNeighbors <= 1 || numOfLivingNeighbors >= 4 ) {
 				return createDeadCell();
 			}
 			else
