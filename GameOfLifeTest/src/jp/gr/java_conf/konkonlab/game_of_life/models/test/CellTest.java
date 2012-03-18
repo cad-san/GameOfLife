@@ -10,4 +10,10 @@ public class CellTest extends TestCase {
 		assertEquals("ALIVE", cell.toString());
 		assertTrue(cell.equals(Cell.AliveCell));
 	}
+
+	public void testInitDead() throws Exception {
+		Cell cell = Cell.DeadCell;
+		assertEquals("DEAD", cell.toString());
+		assertTrue(cell.equals(Cell.DeadCell));
+	}
 }
