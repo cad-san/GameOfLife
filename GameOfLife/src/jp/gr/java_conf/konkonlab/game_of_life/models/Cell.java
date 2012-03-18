@@ -32,17 +32,25 @@ public class Cell {
 		return group;
 	}
 
+	private Cell createAliveCell() {
+		return new Cell(AliveCell);
+	}
+
+	private Cell createDeadCell() {
+		return new Cell(DeadCell);
+	}
+	
 	public Cell createNextGeneration(int numOfLivingNeighbors) {
 		if(status == DeadCell) {
 			if( numOfLivingNeighbors == 3 ) {
-				return new Cell(AliveCell);
+				return createAliveCell();
 			}
 			else {
-				return new Cell(DeadCell);
+				return createDeadCell();
 			}
 		}
 		else {
-			return new Cell(AliveCell);
+			return createAliveCell();
 		}
 	}
 
