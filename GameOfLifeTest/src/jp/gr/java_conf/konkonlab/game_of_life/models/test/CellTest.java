@@ -44,4 +44,9 @@ public class CellTest extends TestCase {
 		Cell nextGenCell = deadCell.createNextGeneration(3);
 		assertTrue(nextGenCell.equals(Cell.AliveCell));
 	}
+	
+	public void testCreateNextGenerationExist() throws Exception {
+		Cell nextGenCell = aliveCell.createNextGeneration(3);
+		assertTrue(nextGenCell.equals(Cell.AliveCell));
+	}
 }

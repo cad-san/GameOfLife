@@ -42,7 +42,7 @@ public class Cell {
 			}
 		}
 		else {
-			return null;
+			return new Cell(AliveCell);
 		}
 	}
 
