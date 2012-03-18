@@ -23,4 +23,8 @@ public class CellTest extends TestCase {
 		assertEquals(1, cell.getGroup());
 	}
 	
+	public void testGroupDead() throws Exception {
+		Cell cell = new Cell(Cell.DeadCell);
+		assertEquals(0, cell.getGroup());
+	}
 }

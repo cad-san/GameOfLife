@@ -5,7 +5,7 @@ public class Cell {
 	public static final String DeadCell  = "DEAD";
 
 	private String status = DeadCell;
-	private int group;
+	private int group = 0;
 	
 	public Cell(String status)
 	{
