@@ -22,8 +22,13 @@ public class Cell {
 		return status.equals(another.status);
 	}
 	
+	public boolean isAlive()
+	{
+		return status.equals(AliveCell);
+	}
+	
 	public void setGroup(int group) {
-		if( status.equals(AliveCell) ) {
+		if( this.isAlive() ) {
 			this.group = group;
 		}
 	}
@@ -41,20 +46,20 @@ public class Cell {
 	}
 	
 	public Cell createNextGeneration(int numOfLivingNeighbors) {
-		if( status.equals(DeadCell) ) {
-			if( numOfLivingNeighbors == 3 ) {
-				return createAliveCell();
-			}
-			else {
-				return createDeadCell();
-			}
-		}
-		else {
+		if( this.isAlive() ) {
 			if ( numOfLivingNeighbors <= 1 || numOfLivingNeighbors >= 4 ) {
 				return createDeadCell();
 			}
 			else {
 				return createAliveCell();
+			}
+		}
+		else {
+			if( numOfLivingNeighbors == 3 ) {
+				return createAliveCell();
+			}
+			else {
+				return createDeadCell();
 			}
 		}
 	}
