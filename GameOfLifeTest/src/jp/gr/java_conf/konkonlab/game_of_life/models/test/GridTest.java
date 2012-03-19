@@ -10,6 +10,10 @@ public class GridTest extends TestCase {
 		int numX = 100;
 		int numY = 100;
 		Grid grid = new Grid(numX, numY);
+		
+		assertEquals(numX, grid.getNumX());
+		assertEquals(numY, grid.getNumY());
+		
 		for(int x = 0; x < numX; x++) {
 			for( int y = 0; y < numY; y++) {
 				assertFalse(grid.getCellAt(x,y).isAlive());
