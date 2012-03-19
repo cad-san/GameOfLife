@@ -17,12 +17,12 @@ public class CellTest extends TestCase {
 	
 	public void testInitAlive() throws Exception {
 		assertEquals("ALIVE", aliveCell.toString());
-		assertTrue(aliveCell.equals(Cell.AliveCell));
+		assertTrue(aliveCell.equals(new Cell( Cell.AliveCell )));
 	}
 
 	public void testInitDead() throws Exception {
 		assertEquals("DEAD", deadCell.toString());
-		assertTrue(deadCell.equals(Cell.DeadCell));
+		assertTrue(deadCell.equals(new Cell( Cell.DeadCell )));
 	}
 	
 	public void testGroupArive() throws Exception {
@@ -37,26 +37,26 @@ public class CellTest extends TestCase {
 	
 	public void testCreateNextGenerationStillDead() throws Exception {
 		Cell nextGenCell = deadCell.createNextGeneration(2);
-		assertTrue(nextGenCell.equals(Cell.DeadCell));
+		assertTrue(nextGenCell.equals(deadCell));
 	}
 	
 	public void testCreateNextGenerationBirth() throws Exception {
 		Cell nextGenCell = deadCell.createNextGeneration(3);
-		assertTrue(nextGenCell.equals(Cell.AliveCell));
+		assertTrue(nextGenCell.equals(aliveCell));
 	}
 	
 	public void testCreateNextGenerationExist() throws Exception {
 		Cell nextGenCell = aliveCell.createNextGeneration(3);
-		assertTrue(nextGenCell.equals(Cell.AliveCell));
+		assertTrue(nextGenCell.equals(aliveCell));
 	}
 
 	public void testCreateNextGenerationTooFew() throws Exception {
 		Cell nextGenCell = aliveCell.createNextGeneration(1);
-		assertTrue(nextGenCell.equals(Cell.DeadCell));
+		assertTrue(nextGenCell.equals(deadCell));
 	}
 
 	public void testCreateNextGenerationTooMany() throws Exception {
 		Cell nextGenCell = aliveCell.createNextGeneration(4);
-		assertTrue(nextGenCell.equals(Cell.DeadCell));
+		assertTrue(nextGenCell.equals(deadCell));
 	}
 }

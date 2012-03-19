@@ -4,8 +4,8 @@ public class Cell {
 	public static final String AliveCell = "ALIVE";
 	public static final String DeadCell  = "DEAD";
 
-	private String status = DeadCell;
-	private int group = 0;
+	String status = DeadCell;
+	int group = 0;
 	
 	public Cell(String status)
 	{
@@ -18,8 +18,9 @@ public class Cell {
 	}
 	
 	@Override
-	public boolean equals(Object another) {
-	return status.equals(another);
+	public boolean equals(Object object) {
+		Cell another = (Cell) object;
+		return status.equals(another.status);
 	}
 	
 	public void setGroup(int group) {
