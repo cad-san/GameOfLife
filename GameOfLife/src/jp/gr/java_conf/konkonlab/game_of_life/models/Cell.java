@@ -2,13 +2,12 @@ package jp.gr.java_conf.konkonlab.game_of_life.models;
 
 public class Cell {
 	public static final String AliveCell = "ALIVE";
-	public static final String DeadCell  = "DEAD";
+	public static final String DeadCell = "DEAD";
 
 	String status = DeadCell;
 	int group = 0;
 	
-	public Cell(String status)
-	{
+	public Cell(String status) {
 		this.status = status;
 	}
 	
@@ -42,7 +41,7 @@ public class Cell {
 	}
 	
 	public Cell createNextGeneration(int numOfLivingNeighbors) {
-		if(status == DeadCell) {
+		if( status.equals(DeadCell) ) {
 			if( numOfLivingNeighbors == 3 ) {
 				return createAliveCell();
 			}
@@ -54,8 +53,7 @@ public class Cell {
 			if ( numOfLivingNeighbors <= 1 || numOfLivingNeighbors >= 4 ) {
 				return createDeadCell();
 			}
-			else
-			{
+			else {
 				return createAliveCell();
 			}
 		}
