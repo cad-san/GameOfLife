@@ -22,8 +22,7 @@ public class Cell {
 		return status.equals(another.status);
 	}
 	
-	public boolean isAlive()
-	{
+	public boolean isAlive() {
 		return status.equals(AliveCell);
 	}
 	
