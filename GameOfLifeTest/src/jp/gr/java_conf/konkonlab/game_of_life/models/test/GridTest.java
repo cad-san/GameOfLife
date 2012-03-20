@@ -9,8 +9,8 @@ import java.util.List;
 public class GridTest extends TestCase {
 
 	public void testFullyInit() throws Exception {
-		int numX = 100;
-		int numY = 100;
+		int numX = 5;
+		int numY = 10;
 		Grid grid = new Grid(numX, numY);
 		
 		assertEquals(0, grid.getGeneration());
@@ -38,10 +38,10 @@ public class GridTest extends TestCase {
 		
 		List<List<Boolean>> cellMatrix = new ArrayList<List<Boolean>>();
 		
-		for(int x = 0; x < numX; x++) {
+		for(int y = 0; y < numX; y++) {
 			cellMatrix.add(new ArrayList<Boolean>());
-			for(int y = 0; y < numY; y++){
-				cellMatrix.get(x).add(initMatix[x][y] == 1);
+			for(int x = 0; x < numY; x++){
+				cellMatrix.get(y).add(initMatix[y][x] == 1);
 			}
 		}
 		
@@ -49,7 +49,7 @@ public class GridTest extends TestCase {
 
 		for(int x = 0; x < numX; x++) {
 			for(int y = 0; y < numY; y++) {
-				if( initMatix[x][y] == 1) {
+				if( initMatix[y][x] == 1) {
 					assertTrue(grid.getCellAt(x,y).isAlive());
 				}
 				else {

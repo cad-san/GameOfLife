@@ -19,24 +19,24 @@ public class Grid {
 	}
 
 	public Cell getCellAt(int x, int y) {
-		return cellMatrix.get(x).get(y);
+		return cellMatrix.get(y).get(x);
 	}
 
 	public int getNumX() {
-		return cellMatrix.size();
+		return cellMatrix.get(0).size();
 	}
 
 	public int getNumY() {
-		return cellMatrix.get(0).size();
+		return cellMatrix.size();
 	}
 
 	private List<List<Cell>> createCellMatrix(int numX, int numY)
 	{
 		List<List<Cell>> cellMatrix = new ArrayList<List<Cell>>();
-		for(int x = 0; x < numX; x++) {
+		for(int y = 0; y < numY; y++) {
 			cellMatrix.add(new ArrayList<Cell>());
-			for(int y = 0; y < numY; y++) {
-				cellMatrix.get(x).add(new Cell(Cell.DeadCell));
+			for(int x = 0; x < numX; x++) {
+				cellMatrix.get(y).add(new Cell(Cell.DeadCell));
 			}
 		}
 		return cellMatrix;
@@ -45,14 +45,14 @@ public class Grid {
 	private List<List<Cell>> createCellMatrix(List<List<Boolean>> booleanMatrix)
 	{
 		List<List<Cell>> cellMatrix = new ArrayList<List<Cell>>();
-		for(int x = 0; x < booleanMatrix.size(); x++) {
+		for(int y = 0; y < booleanMatrix.size(); y++) {
 			cellMatrix.add(new ArrayList<Cell>());
-			for(int y = 0; y < booleanMatrix.get(x).size(); y++) {
-				if(booleanMatrix.get(x).get(y)) {
-					cellMatrix.get(x).add(new Cell(Cell.AliveCell));
+			for(int x = 0; x < booleanMatrix.get(y).size(); x++) {
+				if(booleanMatrix.get(y).get(x)) {
+					cellMatrix.get(y).add(new Cell(Cell.AliveCell));
 				}
 				else {
-					cellMatrix.get(x).add(new Cell(Cell.DeadCell));
+					cellMatrix.get(y).add(new Cell(Cell.DeadCell));
 				}
 			}
 		}
