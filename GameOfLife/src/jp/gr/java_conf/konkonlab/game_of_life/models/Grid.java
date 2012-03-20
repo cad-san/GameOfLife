@@ -18,6 +18,18 @@ public class Grid {
 		cellMatrix = createCellMatrix(booleanMatrix);
 	}
 
+	public Grid(Grid prevGrid) {
+		this.generation = prevGrid.getGeneration() + 1;
+
+		cellMatrix = new ArrayList<List<Cell>>();
+		for(int y = 0; y < prevGrid.getNumY(); y++) {
+			cellMatrix.add(new ArrayList<Cell>());
+			for ( int x = 0; x < prevGrid.getNumX(); x++) {
+				cellMatrix.get(y).add(prevGrid.getCellAt(x, y).createNextGeneration(prevGrid.getNumOfNeighborsAt(x, y)));
+			}
+		}
+	}
+	
 	public int getGeneration() {
 		return generation;
 	}
@@ -26,6 +38,10 @@ public class Grid {
 		return cellMatrix.get(y).get(x);
 	}
 
+	public Grid createNextGeneration() {
+		return new Grid(this);
+	}
+	
 	public int getNumOfNeighborsAt(int x, int y) {
 		int count = 0;
 		for (int targetY = y - 1; targetY <= y + 1; targetY++) {

@@ -85,4 +85,31 @@ public class GridTest extends TestCase {
 		assertEquals(3, grid.getNumOfNeighborsAt(2, 1));
 		assertEquals(5, grid.getNumOfNeighborsAt(2, 2));
 	}
+
+	public void testCreateNextGeneration() throws Exception {
+		int numX = 5;
+		int numY = 5;
+		
+		int[][] initMatix = {
+				{0, 0, 0, 0, 0},
+				{0, 0, 1, 0, 0},
+				{0, 0, 1, 0, 0},
+				{0, 0, 1, 0, 0},
+				{0, 0, 0, 0, 0},
+		};
+		
+		Grid initGrid = createGrid(initMatix, numX, numY);
+		
+		int[][] expectMatix = {
+				{0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0},
+				{0, 1, 1, 1, 0},
+				{0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0},
+		};
+		
+		Grid nextGenGrid = initGrid.createNextGeneration();
+		
+		judgeExprectedGrid(nextGenGrid, expectMatix);
+	}
 }
