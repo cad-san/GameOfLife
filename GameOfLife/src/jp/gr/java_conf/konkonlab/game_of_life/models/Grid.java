@@ -6,20 +6,14 @@ import java.util.List;
 public class Grid {
 
 	private List<List<Cell>> cellMatrix;
-	private int numX;
-	private int numY;
 	private int generation;
 	
 	public Grid(int numX, int numY) {
-		this.numX = numX;
-		this.numY = numY;
 		this.generation = 0;
 		cellMatrix = createCellMatrix(numX, numY);
 	}
 
 	public Grid(List<List<Boolean>> booleanMatrix) {
-		this.numX = booleanMatrix.size();
-		this.numY = booleanMatrix.get(0).size();
 		this.generation = 0;
 		cellMatrix = createCellMatrix(booleanMatrix);
 	}
@@ -29,11 +23,11 @@ public class Grid {
 	}
 
 	public int getNumX() {
-		return numX;
+		return cellMatrix.size();
 	}
 
 	public int getNumY() {
-		return numY;
+		return cellMatrix.get(0).size();
 	}
 
 	private List<List<Cell>> createCellMatrix(int numX, int numY)
