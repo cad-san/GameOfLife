@@ -3,6 +3,8 @@ package jp.gr.java_conf.konkonlab.game_of_life.models.test;
 import jp.gr.java_conf.konkonlab.game_of_life.models.Cell;
 import jp.gr.java_conf.konkonlab.game_of_life.models.Grid;
 import junit.framework.TestCase;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GridTest extends TestCase {
 
@@ -20,5 +22,41 @@ public class GridTest extends TestCase {
 				assertFalse(grid.getCellAt(x,y).isAlive());
 			}
 		}
+	}
+	
+	public void testInitWithList() throws Exception {
+		int numX = 5;
+		int numY = 5;
+		
+		int[][] initMatix = {
+				{0, 0, 0, 0, 0},
+				{0, 1, 1, 0, 0},
+				{0, 1, 0, 1, 0},
+				{0, 0, 1, 0, 0},
+				{0, 0, 0, 0, 0},
+		};
+		
+		List<List<Boolean>> cellMatrix = new ArrayList<List<Boolean>>();
+		
+		for(int x = 0; x < numX; x++) {
+			cellMatrix.add(new ArrayList<Boolean>());
+			for(int y = 0; y < numY; y++){
+				cellMatrix.get(x).add(initMatix[x][y] == 1);
+			}
+		}
+		
+		Grid grid = new Grid(cellMatrix);
+
+		for(int x = 0; x < numX; x++) {
+			for(int y = 0; y < numY; y++) {
+				if( initMatix[x][y] == 1) {
+					assertTrue(grid.getCellAt(x,y).isAlive());
+				}
+				else {
+					assertFalse(grid.getCellAt(x,y).isAlive());
+				}
+			}
+		}
+
 	}
 }

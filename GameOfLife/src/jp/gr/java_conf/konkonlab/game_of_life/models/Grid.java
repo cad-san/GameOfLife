@@ -17,6 +17,13 @@ public class Grid {
 		cellMatrix = createCellMatrix(numX, numY);
 	}
 
+	public Grid(List<List<Boolean>> booleanMatrix) {
+		this.numX = booleanMatrix.size();
+		this.numY = booleanMatrix.get(0).size();
+		this.generation = 0;
+		cellMatrix = createCellMatrix(booleanMatrix);
+	}
+
 	public Cell getCellAt(int x, int y) {
 		return cellMatrix.get(x).get(y);
 	}
@@ -41,6 +48,23 @@ public class Grid {
 		return cellMatrix;
 	}
 
+	private List<List<Cell>> createCellMatrix(List<List<Boolean>> booleanMatrix)
+	{
+		List<List<Cell>> cellMatrix = new ArrayList<List<Cell>>();
+		for(int x = 0; x < booleanMatrix.size(); x++) {
+			cellMatrix.add(new ArrayList<Cell>());
+			for(int y = 0; y < booleanMatrix.get(x).size(); y++) {
+				if(booleanMatrix.get(x).get(y)) {
+					cellMatrix.get(x).add(new Cell(Cell.AliveCell));
+				}
+				else {
+					cellMatrix.get(x).add(new Cell(Cell.DeadCell));
+				}
+			}
+		}
+		return cellMatrix;
+	}
+	
 	public int getGeneration() {
 		return generation;
 	}
