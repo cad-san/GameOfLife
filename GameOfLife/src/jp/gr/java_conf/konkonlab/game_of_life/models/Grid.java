@@ -18,6 +18,10 @@ public class Grid {
 		cellMatrix = createCellMatrix(booleanMatrix);
 	}
 
+	public int getGeneration() {
+		return generation;
+	}
+	
 	public Cell getCellAt(int x, int y) {
 		return cellMatrix.get(y).get(x);
 	}
@@ -57,10 +61,6 @@ public class Grid {
 			}
 		}
 		return cellMatrix;
-	}
-	
-	public int getGeneration() {
-		return generation;
 	}
 
 }
