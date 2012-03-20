@@ -20,14 +20,7 @@ public class Grid {
 
 	public Grid(Grid prevGrid) {
 		this.generation = prevGrid.getGeneration() + 1;
-
-		cellMatrix = new ArrayList<List<Cell>>();
-		for(int y = 0; y < prevGrid.getNumY(); y++) {
-			cellMatrix.add(new ArrayList<Cell>());
-			for ( int x = 0; x < prevGrid.getNumX(); x++) {
-				cellMatrix.get(y).add(prevGrid.getCellAt(x, y).createNextGeneration(prevGrid.getNumOfNeighborsAt(x, y)));
-			}
-		}
+		cellMatrix = createNextCellMatrix(prevGrid);
 	}
 	
 	public int getGeneration() {
@@ -62,8 +55,7 @@ public class Grid {
 		return cellMatrix.size();
 	}
 
-	private List<List<Cell>> createCellMatrix(int numX, int numY)
-	{
+	private List<List<Cell>> createCellMatrix(int numX, int numY) {
 		List<List<Cell>> cellMatrix = new ArrayList<List<Cell>>();
 		for(int y = 0; y < numY; y++) {
 			cellMatrix.add(new ArrayList<Cell>());
@@ -74,8 +66,7 @@ public class Grid {
 		return cellMatrix;
 	}
 
-	private List<List<Cell>> createCellMatrix(List<List<Boolean>> booleanMatrix)
-	{
+	private List<List<Cell>> createCellMatrix(List<List<Boolean>> booleanMatrix) {
 		List<List<Cell>> cellMatrix = new ArrayList<List<Cell>>();
 		for(int y = 0; y < booleanMatrix.size(); y++) {
 			cellMatrix.add(new ArrayList<Cell>());
@@ -90,13 +81,29 @@ public class Grid {
 		}
 		return cellMatrix;
 	}
+	
+	private List<List<Cell>> createNextCellMatrix(Grid prevGrid) {
+		List<List<Cell>> cellMatrix = new ArrayList<List<Cell>>();
+		for(int y = 0; y < prevGrid.getNumY(); y++) {
+			cellMatrix.add(new ArrayList<Cell>());
+			for ( int x = 0; x < prevGrid.getNumX(); x++) {
+				cellMatrix.get(y).add(
+						prevGrid.getCellAt(x, y).createNextGeneration(prevGrid.getNumOfNeighborsAt(x, y)));
+			}
+		}
+		return cellMatrix;
+	}
 
-	private boolean isCentralCell(int centerX, int centerY, int x, int y){
+	private boolean isCentralCell(int centerX, int centerY, int x, int y) {
 		return (x == centerX && y == centerY);
 	}
 	
+	private boolean isOutOfBoundsInCellMatrix(int x, int y) {
+		return (x < 0 || x >= getNumX() || y < 0 || y >= getNumY());
+	}
+	
 	private int countALiveCell( int x, int y ) {
-		if( x < 0 || x >= getNumX() || y < 0 || y >= getNumY()) {
+		if(isOutOfBoundsInCellMatrix(x, y)) {
 			return 0;
 		}
 		else {
