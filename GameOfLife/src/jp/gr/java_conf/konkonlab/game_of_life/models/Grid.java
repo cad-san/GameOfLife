@@ -8,10 +8,12 @@ public class Grid {
 	private List<List<Cell>> cellMatrix;
 	private int numX;
 	private int numY;
+	private int generation;
 	
 	public Grid(int numX, int numY) {
 		this.numX = numX;
 		this.numY = numY;
+		this.generation = 0;
 		cellMatrix = createCellMatrix(numX, numY);
 	}
 
@@ -37,6 +39,10 @@ public class Grid {
 			}
 		}
 		return cellMatrix;
+	}
+
+	public int getGeneration() {
+		return generation;
 	}
 
 }
