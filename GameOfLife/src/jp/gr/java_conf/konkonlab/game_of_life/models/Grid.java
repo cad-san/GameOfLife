@@ -26,6 +26,18 @@ public class Grid {
 		return cellMatrix.get(y).get(x);
 	}
 
+	public int getNumOfNeighborsAt(int x, int y) {
+		int count = 0;
+		for (int targetY = y - 1; targetY <= y + 1; targetY++) {
+			for (int targetX = x - 1; targetX <= x + 1; targetX++) {
+				if(!isCentralCell(x, y, targetX, targetY)) {
+					count += countALiveCell(targetX, targetY);
+				}
+			}
+		}
+		return count;
+	}
+	
 	public int getNumX() {
 		return cellMatrix.get(0).size();
 	}
@@ -63,4 +75,16 @@ public class Grid {
 		return cellMatrix;
 	}
 
+	private boolean isCentralCell(int centerX, int centerY, int x, int y){
+		return (x == centerX && y == centerY);
+	}
+	
+	private int countALiveCell( int x, int y ) {
+		if( x < 0 || x >= getNumX() || y < 0 || y >= getNumY()) {
+			return 0;
+		}
+		else {
+			return getCellAt(x, y).isAlive() ? 1 : 0;
+		}
+	}
 }

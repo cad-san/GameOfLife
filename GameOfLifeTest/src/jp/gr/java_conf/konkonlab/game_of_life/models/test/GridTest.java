@@ -66,4 +66,23 @@ public class GridTest extends TestCase {
 
 		judgeExprectedGrid(grid, initMatix);
 	}
+	
+	public void testNumOfNeighbors() throws Exception {
+		int numX = 5;
+		int numY = 5;
+		
+		int[][] initMatix = {
+				{0, 0, 0, 0, 0},
+				{0, 1, 1, 0, 0},
+				{0, 1, 0, 1, 0},
+				{0, 0, 1, 0, 0},
+				{0, 0, 0, 0, 0},
+		};
+		
+		Grid grid = createGrid(initMatix, numX, numY);
+		assertEquals(1, grid.getNumOfNeighborsAt(0, 0));
+		assertEquals(2, grid.getNumOfNeighborsAt(1, 1));
+		assertEquals(3, grid.getNumOfNeighborsAt(2, 1));
+		assertEquals(5, grid.getNumOfNeighborsAt(2, 2));
+	}
 }
