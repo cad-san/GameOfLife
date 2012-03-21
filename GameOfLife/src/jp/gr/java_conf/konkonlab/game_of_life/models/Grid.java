@@ -60,7 +60,7 @@ public class Grid {
 		for(int y = 0; y < numY; y++) {
 			cellMatrix.add(new ArrayList<Cell>());
 			for(int x = 0; x < numX; x++) {
-				cellMatrix.get(y).add(new Cell(Cell.DeadCell));
+				cellMatrix.get(y).add(Cell.createDeadCell());
 			}
 		}
 		return cellMatrix;
@@ -72,10 +72,10 @@ public class Grid {
 			cellMatrix.add(new ArrayList<Cell>());
 			for(int x = 0; x < booleanMatrix.get(y).size(); x++) {
 				if(booleanMatrix.get(y).get(x)) {
-					cellMatrix.get(y).add(new Cell(Cell.AliveCell));
+					cellMatrix.get(y).add(Cell.createAliveCell());
 				}
 				else {
-					cellMatrix.get(y).add(new Cell(Cell.DeadCell));
+					cellMatrix.get(y).add(Cell.createDeadCell());
 				}
 			}
 		}

@@ -36,11 +36,11 @@ public class Cell {
 		return group;
 	}
 
-	private Cell createAliveCell() {
+	public static Cell createAliveCell() {
 		return new Cell(AliveCell);
 	}
 
-	private Cell createDeadCell() {
+	public static Cell createDeadCell() {
 		return new Cell(DeadCell);
 	}
 	
