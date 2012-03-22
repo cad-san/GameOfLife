@@ -41,6 +41,8 @@ public class LifeGameTest extends TestCase {
 		int numY = 50;
 		LifeGame lifeGame = new LifeGame(numX, numY);
 		Grid grid = lifeGame.getGrid();
+
+		assertEquals(0, lifeGame.getGeneration());
 		
 		for(int x = 0; x < numX; x++) {
 			for( int y = 0; y < numY; y++) {
@@ -79,7 +81,8 @@ public class LifeGameTest extends TestCase {
 		};
 		
 		LifeGame lifeGame = initLifeGame(initMatix, numX, numY);
-		
+		assertEquals(0, lifeGame.getGeneration());
+
 		int[][] expectMatix = {
 				{0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0},
@@ -91,5 +94,7 @@ public class LifeGameTest extends TestCase {
 		lifeGame.step();
 		
 		judgeExprectedGrid(lifeGame.getGrid(), expectMatix);
+		assertEquals(1, lifeGame.getGeneration());
+
 	}
 }

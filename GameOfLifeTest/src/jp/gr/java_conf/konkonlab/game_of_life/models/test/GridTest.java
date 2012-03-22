@@ -39,7 +39,6 @@ public class GridTest extends TestCase {
 		int numY = 10;
 		Grid grid = new Grid(numX, numY);
 		
-		assertEquals(0, grid.getGeneration());
 		assertEquals(numX, grid.getNumX());
 		assertEquals(numY, grid.getNumY());
 		
