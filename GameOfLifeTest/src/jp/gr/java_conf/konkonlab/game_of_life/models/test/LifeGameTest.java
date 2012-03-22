@@ -65,4 +65,31 @@ public class LifeGameTest extends TestCase {
 
 		judgeExprectedGrid(lifeGame.getGrid(), initMatix);
 	}
+	
+	public void testStep() throws Exception {
+		int numX = 5;
+		int numY = 5;
+		
+		int[][] initMatix = {
+				{0, 0, 0, 0, 0},
+				{0, 0, 1, 0, 0},
+				{0, 0, 1, 0, 0},
+				{0, 0, 1, 0, 0},
+				{0, 0, 0, 0, 0},
+		};
+		
+		LifeGame lifeGame = initLifeGame(initMatix, numX, numY);
+		
+		int[][] expectMatix = {
+				{0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0},
+				{0, 1, 1, 1, 0},
+				{0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0},
+		};
+		
+		lifeGame.step();
+		
+		judgeExprectedGrid(lifeGame.getGrid(), expectMatix);
+	}
 }

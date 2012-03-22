@@ -21,4 +21,9 @@ public class LifeGame {
 		return currGrid;
 	}
 
+	public void step() {
+		prevGrid = currGrid;
+		currGrid = prevGrid.createNextGeneration();
+	}
+
 }
