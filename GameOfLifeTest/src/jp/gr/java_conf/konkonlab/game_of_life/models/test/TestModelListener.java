@@ -20,6 +20,7 @@ public class TestModelListener extends TestCase {
 		{
 			this.notifyListener();
 		}
+
 	}
 	
 	MockModelListener modelListener;
@@ -38,4 +39,10 @@ public class TestModelListener extends TestCase {
 		assertTrue(modelListener.notified);
 	}
 	
+	public void testDetachListener() throws Exception {
+		model.detachListener(modelListener);
+		assertFalse(modelListener.notified);
+		model.step();
+		assertFalse(modelListener.notified);
+	}
 }

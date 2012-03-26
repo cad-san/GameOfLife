@@ -10,6 +10,10 @@ public abstract class Model {
 		listeners.add(listener);
 	}
 	
+	public void detachListener(ModelListener listener) {
+		listeners.remove(listener);
+	}
+	
 	public void notifyListener() {
 		Iterator<ModelListener> it = listeners.iterator();
 		while(it.hasNext()) {
