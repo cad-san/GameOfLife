@@ -22,11 +22,17 @@ public class TestModelListener extends TestCase {
 		}
 	}
 	
+	MockModelListener modelListener;
+	MockModel model;
+	
+	@Override
+	protected void setUp() throws Exception {
+		modelListener = new MockModelListener();
+		model = new MockModel();
+		model.attachListener(modelListener);
+	}
+	
 	public void testNotify() throws Exception {
-		MockModelListener modelListener = new MockModelListener();
-		MockModel model = new MockModel();
-		model.setListener(modelListener);
-
 		assertFalse(modelListener.notified);
 		model.step();
 		assertTrue(modelListener.notified);

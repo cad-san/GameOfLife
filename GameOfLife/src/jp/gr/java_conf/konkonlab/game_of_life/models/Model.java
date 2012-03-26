@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public abstract class Model {
 	private List<ModelListener> listeners = new ArrayList<ModelListener>();
-	public void setListener(ModelListener listener){
+	public void attachListener(ModelListener listener){
 		listeners.add(listener);
 	}
 	
