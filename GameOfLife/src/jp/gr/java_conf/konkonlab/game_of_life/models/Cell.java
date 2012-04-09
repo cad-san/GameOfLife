@@ -60,7 +60,7 @@ public class Cell {
 	
 	public Cell createNextGeneration(int numOfLivingNeighbors) {
 		if( this.isAlive() ) {
-			if ( numOfLivingNeighbors <= 1 || numOfLivingNeighbors >= 4 ) {
+			if ( willBeDeath(numOfLivingNeighbors) ) {
 				return createDeadCell();
 			}
 			else {
@@ -68,13 +68,21 @@ public class Cell {
 			}
 		}
 		else {
-			if( numOfLivingNeighbors == 3 ) {
+			if( willBeBorn(numOfLivingNeighbors) ) {
 				return createAliveCell();
 			}
 			else {
 				return createDeadCell();
 			}
 		}
+	}
+
+	private boolean willBeBorn(int numOfLivingNeighbors) {
+		return numOfLivingNeighbors == 3;
+	}
+
+	private boolean willBeDeath(int numOfLivingNeighbors) {
+		return numOfLivingNeighbors <= 1 || numOfLivingNeighbors >= 4;
 	}
 
 }
