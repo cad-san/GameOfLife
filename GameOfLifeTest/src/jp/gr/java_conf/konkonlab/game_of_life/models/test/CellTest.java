@@ -10,8 +10,8 @@ public class CellTest extends TestCase {
 	
 	@Override
 	protected void setUp() throws Exception {
-		deadCell = new Cell(Cell.DeadCell);
-		aliveCell = new Cell(Cell.AliveCell);
+		deadCell = Cell.createDeadCell();
+		aliveCell = Cell.createAliveCell();
 		super.setUp();
 	}
 	
