@@ -84,4 +84,20 @@ public class CellTest extends TestCase {
 		oneYearsOldCell.decideGroup(3);
 		assertEquals(1, oneYearsOldCell.getGroup());
 	}
+
+	public void testCalcGroupAdalt() throws Exception {
+		Cell fiveYearsOldCell = aliveCell;
+		for(int i = 0; i < 5; i++) {
+			fiveYearsOldCell = fiveYearsOldCell.createNextGeneration(3);
+		}
+		fiveYearsOldCell.decideGroup(3);
+		assertEquals(2, fiveYearsOldCell.getGroup());
+	}
+
+	public void testCalcGroupDying() throws Exception {
+		Cell dyingCell = aliveCell;
+		dyingCell.decideGroup(0);
+		assertEquals(3, dyingCell.getGroup());
+	}
+
 }
