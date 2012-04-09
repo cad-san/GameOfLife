@@ -36,6 +36,10 @@ public class Cell {
 		return group;
 	}
 
+	public int getAge() {
+		return 0;
+	}
+	
 	public static Cell createAliveCell() {
 		return new Cell(AliveCell);
 	}
