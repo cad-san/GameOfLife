@@ -68,4 +68,9 @@ public class CellTest extends TestCase {
 		Cell oneYearsOldCell = aliveCell.createNextGeneration(3);
 		assertEquals(1, oneYearsOldCell.getAge() );
 	}
+	
+	public void test2YearsOld() throws Exception {
+		Cell twoYearsOldCell = aliveCell.createNextGeneration(3).createNextGeneration(2);
+		assertEquals(2, twoYearsOldCell.getAge() );
+	}
 }
