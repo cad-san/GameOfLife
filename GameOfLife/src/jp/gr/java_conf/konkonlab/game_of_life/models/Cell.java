@@ -6,11 +6,17 @@ public class Cell {
 
 	String status = DeadCell;
 	int group = 0;
+	int age = 0;
 	
-	public Cell(String status) {
+	private Cell(String status) {
 		this.status = status;
 	}
 	
+	private Cell(String status, int age) {
+		this.status = status;
+		this.age = age;
+	}
+
 	@Override
 	public String toString() {
 		return status;
@@ -37,7 +43,7 @@ public class Cell {
 	}
 
 	public int getAge() {
-		return 0;
+		return age;
 	}
 	
 	public static Cell createAliveCell() {
@@ -47,6 +53,10 @@ public class Cell {
 	public static Cell createDeadCell() {
 		return new Cell(DeadCell);
 	}
+
+	private static Cell createAliveCell(int age) {
+		return new Cell(AliveCell, age);
+	}
 	
 	public Cell createNextGeneration(int numOfLivingNeighbors) {
 		if( this.isAlive() ) {
@@ -54,7 +64,7 @@ public class Cell {
 				return createDeadCell();
 			}
 			else {
-				return createAliveCell();
+				return createAliveCell(age + 1);
 			}
 		}
 		else {
