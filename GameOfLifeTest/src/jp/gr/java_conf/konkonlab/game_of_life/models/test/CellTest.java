@@ -95,7 +95,7 @@ public class CellTest extends TestCase {
 	}
 
 	public void testCalcGroupDying() throws Exception {
-		Cell dyingCell = aliveCell;
+		Cell dyingCell = aliveCell.createNextGeneration(3);
 		dyingCell.decideGroup(0);
 		assertEquals(3, dyingCell.getGroup());
 	}

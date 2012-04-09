@@ -95,14 +95,14 @@ public class Cell {
 	}
 
 	private int calcGroup(int numOfLivingNeighbors) {
-		if ( willBeDeath(numOfLivingNeighbors) ) {
+		if ( age == BIRTH_AGE ) {
+			return 0;
+		}
+		else if ( willBeDeath(numOfLivingNeighbors) ) {
 			return 3;
 		}
 		else if ( age >= ADALT_AGE) {
 			return 2;
-		}
-		else if ( age == BIRTH_AGE ){
-			return 0;
 		}
 		else {
 			return 1;
