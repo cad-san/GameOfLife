@@ -4,8 +4,11 @@ public class Cell {
 	public static final String AliveCell = "ALIVE";
 	public static final String DeadCell = "DEAD";
 
+	private static final int BIRTH_AGE = 0;
+	private static final int ADALT_AGE = 5;
+
 	String status = DeadCell;
-	int group = 0;
+	int group = -1;
 	int age = 0;
 	
 	private Cell(String status) {
@@ -38,6 +41,12 @@ public class Cell {
 		}
 	}
 	
+	public void decideGroup(int numOfLivingNeighbors) {
+		if( this.isAlive() ) {
+			this.group = calcGroup(numOfLivingNeighbors);
+		}
+	}
+
 	public int getGroup() {
 		return group;
 	}
@@ -85,4 +94,18 @@ public class Cell {
 		return numOfLivingNeighbors <= 1 || numOfLivingNeighbors >= 4;
 	}
 
+	private int calcGroup(int numOfLivingNeighbors) {
+		if ( willBeDeath(numOfLivingNeighbors) ) {
+			return 3;
+		}
+		else if ( age >= ADALT_AGE) {
+			return 2;
+		}
+		else if ( age == BIRTH_AGE ){
+			return 0;
+		}
+		else {
+			return 1;
+		}
+	}
 }

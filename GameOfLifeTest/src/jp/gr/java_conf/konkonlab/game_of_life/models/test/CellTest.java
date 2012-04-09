@@ -32,7 +32,7 @@ public class CellTest extends TestCase {
 	
 	public void testGroupDead() throws Exception {
 		deadCell.setGroup(1); // ignored
-		assertEquals(0, deadCell.getGroup());
+		assertEquals(-1, deadCell.getGroup());
 	}
 	
 	public void testCreateNextGenerationStillDead() throws Exception {
@@ -72,5 +72,16 @@ public class CellTest extends TestCase {
 	public void test2YearsOld() throws Exception {
 		Cell twoYearsOldCell = aliveCell.createNextGeneration(3).createNextGeneration(2);
 		assertEquals(2, twoYearsOldCell.getAge() );
+	}
+	
+	public void testCalcGroupBirth() throws Exception {
+		aliveCell.decideGroup(3);
+		assertEquals(0, aliveCell.getGroup());
+	}
+
+	public void testCalcGroupNormal() throws Exception {
+		Cell oneYearsOldCell = aliveCell.createNextGeneration(3);
+		oneYearsOldCell.decideGroup(3);
+		assertEquals(1, oneYearsOldCell.getGroup());
 	}
 }
