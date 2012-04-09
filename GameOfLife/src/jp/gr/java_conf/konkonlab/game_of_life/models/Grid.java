@@ -9,14 +9,17 @@ public class Grid {
 	
 	public Grid(int numX, int numY) {
 		cellMatrix = createCellMatrix(numX, numY);
+		decideGroups();
 	}
 
 	public Grid(List<List<Boolean>> booleanMatrix) {
 		cellMatrix = createCellMatrix(booleanMatrix);
+		decideGroups();
 	}
 
 	public Grid(Grid prevGrid) {
 		cellMatrix = createNextCellMatrix(prevGrid);
+		decideGroups();
 	}
 	
 	public Cell getCellAt(int x, int y) {
@@ -100,6 +103,14 @@ public class Grid {
 		}
 		else {
 			return getCellAt(x, y).isAlive() ? 1 : 0;
+		}
+	}
+
+	private void decideGroups() {
+		for(int y = 0; y < this.getNumY(); y++) {
+			for ( int x = 0; x < this.getNumX(); x++) {
+				this.getCellAt(x, y).decideGroup(this.getNumOfNeighborsAt(x, y));
+			}
 		}
 	}
 }
