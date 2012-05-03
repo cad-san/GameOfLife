@@ -16,12 +16,10 @@ public class LifePatternTest extends TestCase {
 		int numCellX = 2;
 		int numCellY = 2;
 		
-		List<Pair<Integer, Integer>> cells = new ArrayList<Pair<Integer, Integer>>();
-		
-		cells.add(new Pair<Integer,Integer>(0,0));
-		cells.add(new Pair<Integer,Integer>(0,1));
-		cells.add(new Pair<Integer,Integer>(1,0));
-		cells.add(new Pair<Integer,Integer>(1,1));
+		int[][] pairs = {
+				{0,0}, {0,1}, {1,0}, {1,1}
+		};
+		List<Pair<Integer, Integer>> cells = createCellList(pairs);
 		
 		LifePattern life = new LifePattern(name,type,cells,numCellX,numCellY);
 		
@@ -29,9 +27,21 @@ public class LifePatternTest extends TestCase {
 		assertEquals(life.getType(), type);
 		assertEquals(life.getNumCellX(), numCellX);
 		assertEquals(life.getNumCellY(), numCellY);
-		assertTrue(life.isAliveAt(0, 0));
-		assertTrue(life.isAliveAt(0, 1));
-		assertTrue(life.isAliveAt(1, 0));
-		assertTrue(life.isAliveAt(1, 1));
+		assertCellList(pairs, life);
+	}
+
+	private void assertCellList(int[][] pairs, LifePattern life) {
+		for(int i = 0; i < pairs.length;i++){
+			assertTrue(life.isAliveAt(pairs[i][0], pairs[i][1]));
+		}
+	}
+
+	private List<Pair<Integer, Integer>> createCellList(int[][] pairs) {
+		List<Pair<Integer, Integer>> cells = new ArrayList<Pair<Integer, Integer>>();
+		
+		for(int i = 0; i < pairs.length;i++){
+			cells.add(new Pair<Integer,Integer>(pairs[i][0],pairs[i][1]));
+		}
+		return cells;
 	}
 }
