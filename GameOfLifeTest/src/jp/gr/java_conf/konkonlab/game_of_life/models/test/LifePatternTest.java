@@ -23,10 +23,10 @@ public class LifePatternTest extends TestCase {
 		
 		LifePattern life = new LifePattern(name,type,cells,numCellX,numCellY);
 		
-		assertEquals(life.getName(), name);
-		assertEquals(life.getType(), type);
-		assertEquals(life.getNumCellX(), numCellX);
-		assertEquals(life.getNumCellY(), numCellY);
+		assertEquals(name, life.getName());
+		assertEquals(type, life.getType());
+		assertEquals(numCellX, life.getNumCellX());
+		assertEquals(numCellY, life.getNumCellY());
 		assertCellList(pairs, life);
 	}
 
