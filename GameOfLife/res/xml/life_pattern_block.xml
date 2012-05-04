@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<life no="0" type="1">
+		<name>Block</name>
+		<pattern width="2" height="2">
+			<cell x="0" y="0" />
+			<cell x="0" y="1" />
+			<cell x="1" y="0" />
+			<cell x="1" y="1" />
+		</pattern>
+	</life>
+</resources>
