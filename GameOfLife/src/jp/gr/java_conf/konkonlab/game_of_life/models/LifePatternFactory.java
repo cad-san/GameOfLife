@@ -77,15 +77,20 @@ public class LifePatternFactory {
 		int height = 0;
 		List<Pair<Integer, Integer>> cells = null;
 
-		for(int attr = 0; attr < parser.getAttributeCount(); attr++) {
-			// 属性情報
-			if(ATTR_NUM.equals(parser.getAttributeName(attr))) {
-				number = Integer.valueOf(parser.getAttributeValue(attr));
+		if(parser.getAttributeCount() == 2) {
+			for(int attr = 0; attr < parser.getAttributeCount(); attr++) {
+				// 属性情報
+				if(ATTR_NUM.equals(parser.getAttributeName(attr))) {
+					number = Integer.valueOf(parser.getAttributeValue(attr));
+				}
+				if(ATTR_TYPE.equals(parser.getAttributeName(attr))) {
+					type = Integer.valueOf(parser.getAttributeValue(attr));
+				}
+				Log.d("XML:ELEM_ATTR", parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
 			}
-			if(ATTR_TYPE.equals(parser.getAttributeName(attr))) {
-				type = Integer.valueOf(parser.getAttributeValue(attr));
-			}
-			Log.d("XML:ELEM_ATTR", parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
+		}
+		else {
+			throw new XmlPullParserException("wrong attributes in <life></life>");
 		}
 		
 		for(int e = parser.getEventType(); e != XmlResourceParser.END_DOCUMENT; e = parser.next()) {
@@ -104,15 +109,21 @@ public class LifePatternFactory {
 				}
 			}
 			if(e == XmlResourceParser.START_TAG && TAG_PATTERN.equals( parser.getName())) {
-				for( int attr = 0; attr < parser.getAttributeCount(); attr++ ) {
-					/* 属性取得 */
-					if(ATTR_WIDTH.equals(parser.getAttributeName(attr))) {
-						width = Integer.valueOf(parser.getAttributeValue(attr));
+				Log.d("XML:ELEM_NAME", parser.getName());
+				if( parser.getAttributeCount() == 2 ) {
+					for( int attr = 0; attr < parser.getAttributeCount(); attr++ ) {
+						/* 属性取得 */
+						if(ATTR_WIDTH.equals(parser.getAttributeName(attr))) {
+							width = Integer.valueOf(parser.getAttributeValue(attr));
+						}
+						if(ATTR_HEIGHT.equals(parser.getAttributeName(attr))) {
+							height = Integer.valueOf(parser.getAttributeValue(attr));
+						}
+						Log.d("XML:ELEM_ATTR", parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
 					}
-					if(ATTR_HEIGHT.equals(parser.getAttributeName(attr))) {
-						height = Integer.valueOf(parser.getAttributeValue(attr));
-					}
-					Log.d("XML:ELEM_ATTR", parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
+				}
+				else {
+					throw new XmlPullParserException("wrong attributes in <pattern></pattern>");
 				}
 				cells = parsePattern(parser);
 			}
@@ -136,17 +147,22 @@ public class LifePatternFactory {
 			if(e == XmlResourceParser.START_TAG && TAG_CELL.equals(parser.getName())) {
 				/* <cells>のParse */
 				Log.d("XML:ELEM_NAME", parser.getName());
-				for(int attr = 0; attr < parser.getAttributeCount(); attr++) {
-					/* 属性取得 */
-					if(ATTR_X.equals(parser.getAttributeName(attr))) {
-						x = Integer.valueOf(parser.getAttributeValue(attr));
+				if(parser.getAttributeCount() == 2) {
+					for(int attr = 0; attr < parser.getAttributeCount(); attr++) {
+						/* 属性取得 */
+						if(ATTR_X.equals(parser.getAttributeName(attr))) {
+							x = Integer.valueOf(parser.getAttributeValue(attr));
+						}
+						if(ATTR_Y.equals(parser.getAttributeName(attr))) {
+							y = Integer.valueOf(parser.getAttributeValue(attr));
+						}
+						Log.d("XML:ELEM_ATTR", parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
 					}
-					if(ATTR_Y.equals(parser.getAttributeName(attr))) {
-						y = Integer.valueOf(parser.getAttributeValue(attr));
-					}
-					Log.d("XML:ELEM_ATTR", parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
+					cells.add(new Pair<Integer, Integer>(x, y));
 				}
-				cells.add(new Pair<Integer, Integer>(x, y));
+				else {
+					throw new XmlPullParserException("wrong attribute in <cell />");
+				}
 				Log.d("Cell", "cell : " + x + ", " + y);
 			}
 		}
