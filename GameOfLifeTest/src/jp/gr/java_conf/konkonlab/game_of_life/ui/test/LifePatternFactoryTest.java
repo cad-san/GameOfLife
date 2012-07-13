@@ -27,7 +27,7 @@ public class LifePatternFactoryTest extends ActivityInstrumentationTestCase2<Top
 	public void testBlock() throws Exception {
 		LifePatternFactory factory = new LifePatternFactory();
 		factory.addParser(activity.getResources().getXml(R.xml.life_pattern_block));
-		List<LifePattern> lifePatterns = factory.getLifePattern();
+		List<LifePattern> lifePatterns = factory.parseLifePatterns();
 		assertEquals("Block", lifePatterns.get(0).getName());
 		assertEquals(LifePattern.TYPE_STILL_LIFE, lifePatterns.get(0).getType());
 		assertEquals(2, lifePatterns.get(0).getNumCellX());

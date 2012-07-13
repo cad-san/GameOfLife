@@ -29,7 +29,7 @@ public class LifePatternFactory {
 		parsers.add(parser);
 	}
 	
-	public List<LifePattern> getLifePattern() {
+	public List<LifePattern> parseLifePatterns() {
 		List<LifePattern> patterns = new ArrayList<LifePattern>();
 
 		Iterator<XmlResourceParser> it = parsers.iterator();
@@ -37,7 +37,7 @@ public class LifePatternFactory {
 		while(it.hasNext()) {
 			XmlResourceParser parser = (XmlResourceParser) it.next();
 			try {
-				patterns.add(createLifePatternsFromXMLParser(parser));
+				patterns.add(parseLifePatternsFromXML(parser));
 			}
 			catch (XmlPullParserException e) {
 				e.printStackTrace();
@@ -50,7 +50,7 @@ public class LifePatternFactory {
 		return patterns;
 	}
 
-	private LifePattern createLifePatternsFromXMLParser(XmlResourceParser parser)
+	private LifePattern parseLifePatternsFromXML(XmlResourceParser parser)
 			throws XmlPullParserException, IOException {
 		LifePattern pattern = null;
 
