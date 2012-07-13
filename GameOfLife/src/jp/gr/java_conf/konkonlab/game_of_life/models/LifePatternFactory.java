@@ -53,17 +53,18 @@ public class LifePatternFactory {
 	private LifePattern createLifePatternsFromXMLParser(XmlResourceParser parser)
 			throws XmlPullParserException, IOException {
 		LifePattern pattern = null;
-		for(int e = parser.getEventType(); e != XmlResourceParser.END_DOCUMENT; e = parser.next()) {
-			if(isEndTagOf(TAG_LIFE, parser, e)) {
-				Log.d("XML:ELEM", "END");
+
+		Log.d("XML:ELEM", "START");
+		for(int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
+			if(isEndTagOf(TAG_LIFE, parser, tag)) {
 				break;
 			}
-			if(isStartTagOf(TAG_LIFE, parser, e)) {
-				Log.d("XML:ELEM", "START");
+			if(isStartTagOf(TAG_LIFE, parser, tag)) {
 				Log.d("XML:ELEM_NAME", parser.getName());
 				pattern = parseLife(parser);
 			}
 		}
+		Log.d("XML:ELEM", "END");
 		return pattern;
 	}
 
@@ -93,22 +94,21 @@ public class LifePatternFactory {
 			throw new XmlPullParserException("wrong attributes in <life></life>");
 		}
 		
-		for(int e = parser.getEventType(); e != XmlResourceParser.END_DOCUMENT; e = parser.next()) {
-			if(isEndTagOf(TAG_LIFE, parser, e)) {
+		for(int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
+			if(isEndTagOf(TAG_LIFE, parser, tag)) {
 				/* </life>で終了 */
-				Log.d("XML:ELEM", "END");
 				break;
 			}
-			if(isStartTagOf(TAG_NAME, parser, e)) {
+			if(isStartTagOf(TAG_NAME, parser, tag)) {
 				/* <name></name>のParse */
 				Log.d("XML:ELEM_NAME", parser.getName());
-				e = parser.next();
-				if(e == XmlResourceParser.TEXT){
+				tag = parser.next();
+				if(tag == XmlResourceParser.TEXT){
 					name = parser.getText();
 					Log.d("XML:ELEM_NAME", parser.getText());
 				}
 			}
-			if(isStartTagOf(TAG_PATTERN, parser, e)) {
+			if(isStartTagOf(TAG_PATTERN, parser, tag)) {
 				Log.d("XML:ELEM_NAME", parser.getName());
 				if( parser.getAttributeCount() == 2 ) {
 					for( int attr = 0; attr < parser.getAttributeCount(); attr++ ) {
@@ -138,13 +138,13 @@ public class LifePatternFactory {
 		int x = -1;
 		int y = -1;
 		
-		for(int e = parser.getEventType(); e != XmlResourceParser.END_DOCUMENT; e = parser.next()) {
-			if(isEndTagOf(TAG_PATTERN, parser, e)){
+		for(int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
+			if(isEndTagOf(TAG_PATTERN, parser, tag)){
 				/* </pattern>で終了 */
 				Log.d("XML:ELEM", "END");
 				break;
 			}
-			if(isStartTagOf(TAG_CELL, parser, e)){
+			if(isStartTagOf(TAG_CELL, parser, tag)){
 				/* <cells>のParse */
 				Log.d("XML:ELEM_NAME", parser.getName());
 				if(parser.getAttributeCount() == 2) {
