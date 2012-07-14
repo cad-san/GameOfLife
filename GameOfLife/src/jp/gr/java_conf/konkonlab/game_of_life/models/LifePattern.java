@@ -63,7 +63,7 @@ public class LifePattern {
 		
 		while(it.hasNext()){
 			Pair<Integer,Integer> pair = (Pair<Integer, Integer>) it.next();
-			cellMatrix.get(pair.first).set(pair.second, true);
+			cellMatrix.get(pair.second).set(pair.first, true);
 		}
 		
 		return cellMatrix;

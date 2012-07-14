@@ -37,4 +37,23 @@ public class LifePatternFactoryTest extends ActivityInstrumentationTestCase2<Top
 		assertTrue(lifePatterns.get(0).isAliveAt(1, 0));
 		assertTrue(lifePatterns.get(0).isAliveAt(1, 1));
 	}
+	
+	public void testMultiLife() throws Exception {
+		LifePatternFactory factory = new LifePatternFactory();
+		factory.addParser(activity.getResources().getXml(R.xml.life_pattern_block));
+		List<LifePattern> lifePatterns = factory.parseLifePatterns();
+		
+		assertEquals(2, lifePatterns.size());
+		
+		assertEquals("Beehive", lifePatterns.get(1).getName());
+		assertEquals(LifePattern.TYPE_STILL_LIFE, lifePatterns.get(1).getType());
+		assertEquals(4, lifePatterns.get(1).getNumCellX());
+		assertEquals(3, lifePatterns.get(1).getNumCellY());
+		assertTrue(lifePatterns.get(1).isAliveAt(1, 0));
+		assertTrue(lifePatterns.get(1).isAliveAt(2, 0));
+		assertTrue(lifePatterns.get(1).isAliveAt(0, 1));
+		assertTrue(lifePatterns.get(1).isAliveAt(3, 1));
+		assertTrue(lifePatterns.get(1).isAliveAt(1, 2));
+		assertTrue(lifePatterns.get(1).isAliveAt(2, 2));
+	}
 }

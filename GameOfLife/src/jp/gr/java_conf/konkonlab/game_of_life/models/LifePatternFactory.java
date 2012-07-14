@@ -37,7 +37,7 @@ public class LifePatternFactory {
 		while(it.hasNext()) {
 			XmlResourceParser parser = (XmlResourceParser) it.next();
 			try {
-				patterns.add(parseLifePatternsFromXML(parser));
+				patterns.addAll(parseLifePatternsFromXML(parser));
 			}
 			catch (XmlPullParserException e) {
 				e.printStackTrace();
@@ -50,18 +50,19 @@ public class LifePatternFactory {
 		return patterns;
 	}
 
-	private LifePattern parseLifePatternsFromXML(XmlResourceParser parser)
+	private List<LifePattern> parseLifePatternsFromXML(XmlResourceParser parser)
 			throws XmlPullParserException, IOException {
-		LifePattern pattern = null;
+		List<LifePattern> pattern = new ArrayList<LifePattern>();
 
 		Log.d("XML:ELEM", "START");
 		for(int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
 			if(isEndTagOf(TAG_LIFE, parser, tag)) {
+				Log.d("XML:ELEM_NAME", "END:" + parser.getName());
 				break;
 			}
 			if(isStartTagOf(TAG_LIFE, parser, tag)) {
-				Log.d("XML:ELEM_NAME", parser.getName());
-				pattern = parseLife(parser);
+				Log.d("XML:ELEM_NAME", "START:" + parser.getName());
+				pattern.add(parseLife(parser));
 			}
 		}
 		Log.d("XML:ELEM", "END");
@@ -130,6 +131,7 @@ public class LifePatternFactory {
 				cells = parsePattern(parser);
 			}
 		}
+		Log.d("LifePattern", "parsed:"+name);
 		return new LifePattern(name, type, cells, width, height);
 	}
 
@@ -143,7 +145,7 @@ public class LifePatternFactory {
 		for(int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
 			if(isEndTagOf(TAG_PATTERN, parser, tag)){
 				/* </pattern>で終了 */
-				Log.d("XML:ELEM", "END");
+				Log.d("XML:ELEM", "END"+parser.getName());
 				break;
 			}
 			if(isStartTagOf(TAG_CELL, parser, tag)){
