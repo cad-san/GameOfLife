@@ -25,17 +25,21 @@ public class LifePatternTest extends TestCase {
 		
 		assertEquals(name, life.getName());
 		assertEquals(type, life.getType());
-		assertEquals(numCellX, life.getNumCellX());
-		assertEquals(numCellY, life.getNumCellY());
+		assertCellSize(life, numCellX, numCellY);
 		assertCellList(pairs, life);
 	}
 
-	private void assertCellList(int[][] pairs, LifePattern life) {
+	public static void assertCellList(int[][] pairs, LifePattern life) {
 		for(int i = 0; i < pairs.length;i++){
 			assertTrue(life.isAliveAt(pairs[i][0], pairs[i][1]));
 		}
 	}
 
+	public static void assertCellSize(LifePattern life, int width, int height) {
+		assertEquals(width, life.getNumCellX());
+		assertEquals(height, life.getNumCellY());
+	}
+	
 	private List<Pair<Integer, Integer>> createCellList(int[][] pairs) {
 		List<Pair<Integer, Integer>> cells = new ArrayList<Pair<Integer, Integer>>();
 		
