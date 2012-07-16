@@ -88,8 +88,7 @@ public class LifePatternFactory {
 				if(isAttributeOf(ATTR_TYPE, parser, attr)) {
 					type = getAttrValueAsInteger(parser, attr);
 				}
-				Log.d("XML:ELEM_ATTR",
-						parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
+				outputLogOfAttribute(parser, attr);
 			}
 		}
 		else {
@@ -124,8 +123,7 @@ public class LifePatternFactory {
 						if(isAttributeOf(ATTR_HEIGHT, parser, attr)) {
 							height = getAttrValueAsInteger(parser, attr);
 						}
-						Log.d("XML:ELEM_ATTR",
-								parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
+						outputLogOfAttribute(parser, attr);
 					}
 				}
 				else {
@@ -163,8 +161,7 @@ public class LifePatternFactory {
 						if(isAttributeOf(ATTR_Y, parser, attr)) {
 							y = getAttrValueAsInteger(parser, attr);
 						}
-						Log.d("XML:ELEM_ATTR",
-								parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
+						outputLogOfAttribute(parser, attr);
 					}
 					cells.add(new Pair<Integer, Integer>(x, y));
 				}
@@ -200,5 +197,10 @@ public class LifePatternFactory {
 
 	private void outputLogOfTagEnd(String tagName) {
 		Log.d("XML:ELEM_NAME", "END:" + tagName);
+	}
+	
+	private void outputLogOfAttribute(XmlResourceParser parser, int attr) {
+		Log.d("XML:ELEM_ATTR",
+				parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
 	}
 }
