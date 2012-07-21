@@ -26,13 +26,14 @@ public class LifePatternFactory {
 	private static final String ATTR_X      = "x";
 	private static final String ATTR_Y      = "y";
 	
-	List<XmlResourceParser> parsers = new ArrayList<XmlResourceParser>();
+	private List<XmlResourceParser> parsers = new ArrayList<XmlResourceParser>();
+	private List<LifePattern> patterns = new ArrayList<LifePattern>();
+
 	public void addParser(XmlResourceParser parser) {
 		parsers.add(parser);
 	}
 	
-	public List<LifePattern> parseLifePatterns() {
-		List<LifePattern> patterns = new ArrayList<LifePattern>();
+	public void parse() {
 
 		Iterator<XmlResourceParser> it = parsers.iterator();
 		
@@ -48,10 +49,13 @@ public class LifePatternFactory {
 				e.printStackTrace();
 			}
 		}
-		
-		return patterns;
 	}
 
+	public List<LifePattern> getLifePatterns()
+	{
+		return patterns;
+	}
+	
 	private List<LifePattern> parseLifePatternsFromXML(XmlResourceParser parser)
 			throws XmlPullParserException, IOException {
 		List<LifePattern> pattern = new ArrayList<LifePattern>();
