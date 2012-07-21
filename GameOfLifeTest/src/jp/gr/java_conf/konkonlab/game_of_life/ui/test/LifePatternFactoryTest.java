@@ -15,6 +15,7 @@ import android.util.Pair;
 
 public class LifePatternFactoryTest extends ActivityInstrumentationTestCase2<TopActivity> {
 	private Activity activity;
+	private LifePatternFactory factory;
 	private List<LifePattern> lifePatterns;
 	
 	public LifePatternFactoryTest() {
@@ -25,14 +26,18 @@ public class LifePatternFactoryTest extends ActivityInstrumentationTestCase2<Top
 	protected void setUp() throws Exception {
 		super.setUp();
 		this.activity = getActivity();
-		LifePatternFactory factory = new LifePatternFactory();
+		factory = new LifePatternFactory();
+	}
+
+	private List<LifePattern> parseLifePatterns() {
 		factory.addParser(activity.getResources().getXml(R.xml.life_pattern_still_life));
 		factory.addParser(activity.getResources().getXml(R.xml.life_pattern_oscillator));
 		factory.parse();
-		lifePatterns = factory.getLifePatterns();
+		return factory.getLifePatterns();
 	}
 	
 	public void testBlock() throws Exception {
+		lifePatterns = parseLifePatterns();
 		LifePattern lifePattern = lifePatterns.get(0);
 		int[][] cells = {
 				{0,0}, {0,1}, {1,0}, {1,1}
@@ -46,6 +51,7 @@ public class LifePatternFactoryTest extends ActivityInstrumentationTestCase2<Top
 	}
 	
 	public void testMultiLife() throws Exception {
+		lifePatterns = parseLifePatterns();
 		LifePattern lifeBeehive = lifePatterns.get(1);
 		int[][] beehiveCells = {
 				{1,0}, {2,0}, {0,1}, {3,1}, {1,2}, {2,2}
@@ -59,6 +65,7 @@ public class LifePatternFactoryTest extends ActivityInstrumentationTestCase2<Top
 	}
 	
 	public void testMutipleParser() throws Exception {
+		lifePatterns = parseLifePatterns();
 		LifePattern lifeBlinker = lifePatterns.get(2);
 		int[][] blinkerCells = {
 				{1,0}, {1,1}, {1,2}
@@ -68,5 +75,16 @@ public class LifePatternFactoryTest extends ActivityInstrumentationTestCase2<Top
 
 		LifePatternTest.assertCellSize(lifeBlinker, 3, 3);
 		LifePatternTest.assertCellList(blinkerCells, lifeBlinker);
+	}
+	
+	public void testNoParser() throws Exception {
+		factory.parse();
+		assertTrue(factory.getLifePatterns().isEmpty());
+	}
+	
+	public void testNullParser() throws Exception {
+		factory.addParser(null);
+		factory.parse();
+		assertTrue(factory.getLifePatterns().isEmpty());
 	}
 }

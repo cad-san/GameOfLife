@@ -30,6 +30,9 @@ public class LifePatternFactory {
 	private List<LifePattern> patterns = new ArrayList<LifePattern>();
 
 	public void addParser(XmlResourceParser parser) {
+		if(parser == null)
+			return;
+		
 		parsers.add(parser);
 	}
 	
