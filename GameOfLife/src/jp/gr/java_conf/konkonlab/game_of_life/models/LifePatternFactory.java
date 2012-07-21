@@ -12,6 +12,8 @@ import android.util.Log;
 import android.util.Pair;
 
 public class LifePatternFactory {
+	private static final String TAG = "LifePatternFactory";
+	
 	private static final String TAG_ROOT    = "resources";
 	private static final String TAG_LIFE    = "life";
 	private static final String TAG_NAME    = "name";
@@ -23,7 +25,6 @@ public class LifePatternFactory {
 	private static final String ATTR_HEIGHT = "height";
 	private static final String ATTR_X      = "x";
 	private static final String ATTR_Y      = "y";
-
 	
 	List<XmlResourceParser> parsers = new ArrayList<XmlResourceParser>();
 	public void addParser(XmlResourceParser parser) {
@@ -55,7 +56,7 @@ public class LifePatternFactory {
 			throws XmlPullParserException, IOException {
 		List<LifePattern> pattern = new ArrayList<LifePattern>();
 
-		Log.d("XML:ELEM", "START");
+		Log.d(TAG, "XML Parse START");
 		for(int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
 			if(isEndTagOf(TAG_ROOT, parser, tag)) {
 				break;
@@ -65,7 +66,7 @@ public class LifePatternFactory {
 				pattern.add(parseLife(parser));
 			}
 		}
-		Log.d("XML:ELEM", "END");
+		Log.d(TAG, "XML Parse END");
 		return pattern;
 	}
 
@@ -107,7 +108,7 @@ public class LifePatternFactory {
 				tag = parser.next();
 				if(tag == XmlResourceParser.TEXT){
 					name = parser.getText();
-					Log.d("XML:ELEM_NAME", name);
+					Log.d(TAG, "XML:ELEM_NAME :" + name);
 				}
 				outputLogOfTagEnd(TAG_NAME);
 			}
@@ -132,7 +133,7 @@ public class LifePatternFactory {
 				cells = parsePattern(parser);
 			}
 		}
-		Log.d("LifePattern", "parsed:"+name);
+		Log.d(TAG, "Life Pattern parsed :" + name);
 		return new LifePattern(name, type, cells, width, height);
 	}
 
@@ -169,7 +170,7 @@ public class LifePatternFactory {
 					throw new XmlPullParserException("wrong attribute in <cell />");
 				}
 				outputLogOfTagEnd(TAG_CELL);
-				Log.d("Cell", "cell : " + x + ", " + y);
+				Log.d(TAG, "cell: " + x + ", " + y);
 			}
 		}
 		return cells;
@@ -192,15 +193,15 @@ public class LifePatternFactory {
 	}
 	
 	private void outputLogOfTagStart(String tagName) {
-		Log.d("XML:ELEM_NAME", "START:" + tagName);
+		Log.d(TAG, "XML:ELEM_START: " + tagName);
 	}
 
 	private void outputLogOfTagEnd(String tagName) {
-		Log.d("XML:ELEM_NAME", "END:" + tagName);
+		Log.d(TAG, "XML:ELEM_END: " + tagName);
 	}
 	
 	private void outputLogOfAttribute(XmlResourceParser parser, int attr) {
-		Log.d("XML:ELEM_ATTR",
-				parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
+		Log.d(TAG, "XML:ELEM_ATTR: "
+				+ parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
 	}
 }
