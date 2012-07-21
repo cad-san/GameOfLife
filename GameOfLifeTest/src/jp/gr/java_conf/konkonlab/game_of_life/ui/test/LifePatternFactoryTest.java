@@ -26,7 +26,8 @@ public class LifePatternFactoryTest extends ActivityInstrumentationTestCase2<Top
 		super.setUp();
 		this.activity = getActivity();
 		LifePatternFactory factory = new LifePatternFactory();
-		factory.addParser(activity.getResources().getXml(R.xml.life_pattern_block));
+		factory.addParser(activity.getResources().getXml(R.xml.life_pattern_still_life));
+		factory.addParser(activity.getResources().getXml(R.xml.life_pattern_oscillator));
 		factory.parse();
 		lifePatterns = factory.getLifePatterns();
 	}
@@ -55,5 +56,17 @@ public class LifePatternFactoryTest extends ActivityInstrumentationTestCase2<Top
 
 		LifePatternTest.assertCellSize(lifeBeehive, 4, 3);
 		LifePatternTest.assertCellList(beehiveCells, lifeBeehive);
+	}
+	
+	public void testMutipleParser() throws Exception {
+		LifePattern lifeBlinker = lifePatterns.get(2);
+		int[][] blinkerCells = {
+				{1,0}, {1,1}, {1,2}
+		};
+		assertEquals("Blinker", lifeBlinker.getName());
+		assertEquals(LifePattern.TYPE_OSCILLATOR, lifeBlinker.getType());
+
+		LifePatternTest.assertCellSize(lifeBlinker, 3, 3);
+		LifePatternTest.assertCellList(blinkerCells, lifeBlinker);
 	}
 }

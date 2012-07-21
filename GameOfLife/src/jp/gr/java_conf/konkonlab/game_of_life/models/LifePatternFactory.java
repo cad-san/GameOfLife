@@ -34,11 +34,7 @@ public class LifePatternFactory {
 	}
 	
 	public void parse() {
-
-		Iterator<XmlResourceParser> it = parsers.iterator();
-		
-		while(it.hasNext()) {
-			XmlResourceParser parser = (XmlResourceParser) it.next();
+		for( XmlResourceParser parser : parsers ) {
 			try {
 				patterns.addAll(parseLifePatternsFromXML(parser));
 			}
@@ -51,8 +47,7 @@ public class LifePatternFactory {
 		}
 	}
 
-	public List<LifePattern> getLifePatterns()
-	{
+	public List<LifePattern> getLifePatterns() {
 		return patterns;
 	}
 	
