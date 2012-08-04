@@ -7,7 +7,7 @@ public class LifeGame {
 	private Grid currGrid;
 	private Grid prevGrid;
 	private int generation;
-	
+
 	public LifeGame(int numX, int numY) {
 		generation = 0;
 		currGrid = new Grid(numX, numY);

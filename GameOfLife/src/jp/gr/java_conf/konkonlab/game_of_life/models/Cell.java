@@ -10,11 +10,11 @@ public class Cell {
 	String status = DeadCell;
 	int group = -1;
 	int age = 0;
-	
+
 	private Cell(String status) {
 		this.status = status;
 	}
-	
+
 	private Cell(String status, int age) {
 		this.status = status;
 		this.age = age;
@@ -24,25 +24,25 @@ public class Cell {
 	public String toString() {
 		return status;
 	}
-	
+
 	@Override
 	public boolean equals(Object object) {
 		Cell another = (Cell) object;
 		return status.equals(another.status);
 	}
-	
+
 	public boolean isAlive() {
 		return status.equals(AliveCell);
 	}
-	
+
 	public void setGroup(int group) {
-		if( this.isAlive() ) {
+		if (this.isAlive()) {
 			this.group = group;
 		}
 	}
-	
+
 	public void decideGroup(int numOfLivingNeighbors) {
-		if( this.isAlive() ) {
+		if (this.isAlive()) {
 			this.group = calcGroup(numOfLivingNeighbors);
 		}
 	}
@@ -54,7 +54,7 @@ public class Cell {
 	public int getAge() {
 		return age;
 	}
-	
+
 	public static Cell createAliveCell() {
 		return new Cell(AliveCell);
 	}
@@ -66,10 +66,10 @@ public class Cell {
 	private static Cell createAliveCell(int age) {
 		return new Cell(AliveCell, age);
 	}
-	
+
 	public Cell createNextGeneration(int numOfLivingNeighbors) {
-		if( this.isAlive() ) {
-			if ( willBeDeath(numOfLivingNeighbors) ) {
+		if (this.isAlive()) {
+			if (willBeDeath(numOfLivingNeighbors)) {
 				return createDeadCell();
 			}
 			else {
@@ -77,7 +77,7 @@ public class Cell {
 			}
 		}
 		else {
-			if( willBeBorn(numOfLivingNeighbors) ) {
+			if (willBeBorn(numOfLivingNeighbors)) {
 				return createAliveCell();
 			}
 			else {
@@ -95,13 +95,13 @@ public class Cell {
 	}
 
 	private int calcGroup(int numOfLivingNeighbors) {
-		if ( age == BIRTH_AGE ) {
+		if (age == BIRTH_AGE) {
 			return 0;
 		}
-		else if ( willBeDeath(numOfLivingNeighbors) ) {
+		else if (willBeDeath(numOfLivingNeighbors)) {
 			return 3;
 		}
-		else if ( age >= ADALT_AGE) {
+		else if (age >= ADALT_AGE) {
 			return 2;
 		}
 		else {

@@ -19,12 +19,14 @@ public class LifeGridView extends View {
 	private static final int LINE_WEIGHT = 1;
 
 	private static final int LINE_COLOR = Color.argb(0xff, 0x9c, 0x9c, 0x9c);
+	/* @formatter:off */
 	private static final int[] CELL_COLORS = {
 		Color.argb(0xff, 0xf5, 0x34, 0x8d),
 		Color.argb(0xff, 0x1b, 0xa0, 0xfd),
 		Color.argb(0xff, 0xb7, 0xff, 0x0e),
 		Color.argb(0xff, 0xfb, 0xdb, 0x0e)
 	};
+	/* @formatter:on */
 
 	private int numCellX;
 	private int numCellY;
@@ -56,7 +58,7 @@ public class LifeGridView extends View {
 		int width = MeasureSpec.getSize(widthMeasureSpec);
 		int height = MeasureSpec.getSize(heightMeasureSpec);
 
-		width = height = (width > height)? height : width;
+		width = height = (width > height) ? height : width;
 		this.setMeasuredDimension(width, height);
 	}
 
@@ -69,7 +71,7 @@ public class LifeGridView extends View {
 	protected void onDraw(Canvas canvas) {
 		drawGridLine(canvas, gridAxis, lineColor);
 
-		if(cellMatrix != null) {
+		if (cellMatrix != null) {
 			drawCells(canvas, gridAxis, cellMatrix, cellColors);
 		}
 	}
@@ -87,10 +89,10 @@ public class LifeGridView extends View {
 	}
 
 	private void perseAttrs(Context context, AttributeSet attrs) {
-		TypedArray tArray = context.obtainStyledAttributes(attrs,R.styleable.LifeGridView);
+		TypedArray tArray = context.obtainStyledAttributes(attrs, R.styleable.LifeGridView);
 		this.numCellX = tArray.getInteger(R.styleable.LifeGridView_numCellX, NUM_CELL_X);
 		this.numCellY = tArray.getInteger(R.styleable.LifeGridView_numCellY, NUM_CELL_Y);
-		this.lineWeight = tArray.getDimensionPixelSize(R.styleable.LifeGridView_lineWeight,LINE_WEIGHT);
+		this.lineWeight = tArray.getDimensionPixelSize(R.styleable.LifeGridView_lineWeight, LINE_WEIGHT);
 
 		this.lineColor = tArray.getColor(R.styleable.LifeGridView_lineColor, LINE_COLOR);
 		this.cellColors = new int[4];
@@ -103,9 +105,9 @@ public class LifeGridView extends View {
 	private void drawCells(Canvas canvas, LifeGridAxis gridAxis, List<List<Integer>> cellMatrix, int[] cellColors) {
 		Paint rectPaint = new Paint();
 
-		for(int y = 0; y < cellMatrix.size(); y++) {
-			for(int x = 0; x < cellMatrix.get(y).size(); x++) {
-				if(cellMatrix.get(y).get(x) >= 0 && cellMatrix.get(y).get(x) < cellColors.length) {
+		for (int y = 0; y < cellMatrix.size(); y++) {
+			for (int x = 0; x < cellMatrix.get(y).size(); x++) {
+				if (cellMatrix.get(y).get(x) >= 0 && cellMatrix.get(y).get(x) < cellColors.length) {
 					rectPaint.setColor(cellColors[cellMatrix.get(y).get(x)]);
 					drawCellAt(canvas, rectPaint, gridAxis, x, y);
 				}
@@ -114,10 +116,12 @@ public class LifeGridView extends View {
 	}
 
 	private void drawCellAt(Canvas canvas, Paint paint, LifeGridAxis gridAxis, int x, int y) {
+		/* @formatter:off */
 		int top    = gridAxis.getCellXAxisAt(x);
 		int left   = gridAxis.getCellYAxisAt(y);
 		int bottom = gridAxis.getLineXAxisAt(x+1);
 		int right  = gridAxis.getLineYAxisAt(y+1);
+		/* @formatter:on */
 
 		canvas.drawRect(top, left, bottom, right, paint);
 	}
@@ -131,8 +135,7 @@ public class LifeGridView extends View {
 		/* 縦軸 */
 		top = gridAxis.getLineYAxisAt(0);
 		bottom = gridAxis.getCellYAxisAt(gridAxis.getNumCellY());
-		for(int x = 0; x < gridAxis.getNumLineX(); x++)
-		{
+		for (int x = 0; x < gridAxis.getNumLineX(); x++) {
 			left = gridAxis.getLineXAxisAt(x);
 			right = gridAxis.getCellXAxisAt(x);
 			canvas.drawRect(left, top, right, bottom, paint);
@@ -141,8 +144,7 @@ public class LifeGridView extends View {
 		/* 横軸 */
 		left = gridAxis.getLineXAxisAt(0);
 		right = gridAxis.getCellXAxisAt(gridAxis.getNumCellX());
-		for(int y = 0; y < gridAxis.getNumLineX(); y++)
-		{
+		for (int y = 0; y < gridAxis.getNumLineX(); y++) {
 			top = gridAxis.getLineYAxisAt(y);
 			bottom = gridAxis.getCellYAxisAt(y);
 			canvas.drawRect(left, top, right, bottom, paint);

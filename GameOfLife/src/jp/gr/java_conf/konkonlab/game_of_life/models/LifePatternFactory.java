@@ -12,8 +12,8 @@ import android.util.Log;
 import android.util.Pair;
 
 public class LifePatternFactory {
+	/* @formatter:off */
 	private static final String TAG = "LifePatternFactory";
-	
 	private static final String TAG_ROOT    = "resources";
 	private static final String TAG_LIFE    = "life";
 	private static final String TAG_NAME    = "name";
@@ -25,19 +25,20 @@ public class LifePatternFactory {
 	private static final String ATTR_HEIGHT = "height";
 	private static final String ATTR_X      = "x";
 	private static final String ATTR_Y      = "y";
-	
+	/* @formatter:on */
+
 	private List<XmlResourceParser> parsers = new ArrayList<XmlResourceParser>();
 	private List<List<LifePattern>> patterns = new ArrayList<List<LifePattern>>();
 
 	public void addParser(XmlResourceParser parser) {
-		if(parser == null)
+		if (parser == null)
 			return;
-		
+
 		parsers.add(parser);
 	}
-	
+
 	public void parse() {
-		for( XmlResourceParser parser : parsers ) {
+		for (XmlResourceParser parser : parsers) {
 			try {
 				patterns.add(parseLifePatternsFromXML(parser));
 			}
@@ -53,17 +54,17 @@ public class LifePatternFactory {
 	public List<List<LifePattern>> getLifePatterns() {
 		return patterns;
 	}
-	
-	private List<LifePattern> parseLifePatternsFromXML(XmlResourceParser parser)
-			throws XmlPullParserException, IOException {
+
+	private List<LifePattern> parseLifePatternsFromXML(XmlResourceParser parser) throws XmlPullParserException,
+			IOException {
 		List<LifePattern> pattern = new ArrayList<LifePattern>();
 
 		Log.d(TAG, "XML Parse START");
-		for(int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
-			if(isEndTagOf(TAG_ROOT, parser, tag)) {
+		for (int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
+			if (isEndTagOf(TAG_ROOT, parser, tag)) {
 				break;
 			}
-			if(isStartTagOf(TAG_LIFE, parser, tag)) {
+			if (isStartTagOf(TAG_LIFE, parser, tag)) {
 				outputLogOfTagStart(TAG_LIFE);
 				pattern.add(parseLife(parser));
 			}
@@ -72,8 +73,7 @@ public class LifePatternFactory {
 		return pattern;
 	}
 
-	private LifePattern parseLife(XmlResourceParser parser)
-			throws XmlPullParserException, IOException {
+	private LifePattern parseLife(XmlResourceParser parser) throws XmlPullParserException, IOException {
 
 		String name = "";
 		int number = -1;
@@ -82,13 +82,13 @@ public class LifePatternFactory {
 		int height = 0;
 		List<Pair<Integer, Integer>> cells = null;
 
-		if(parser.getAttributeCount() == 2) {
-			for(int attr = 0; attr < parser.getAttributeCount(); attr++) {
+		if (parser.getAttributeCount() == 2) {
+			for (int attr = 0; attr < parser.getAttributeCount(); attr++) {
 				/* 属性取得 */
-				if(isAttributeOf(ATTR_NUM, parser, attr)) {
+				if (isAttributeOf(ATTR_NUM, parser, attr)) {
 					number = getAttrValueAsInteger(parser, attr);
 				}
-				if(isAttributeOf(ATTR_TYPE, parser, attr)) {
+				if (isAttributeOf(ATTR_TYPE, parser, attr)) {
 					type = getAttrValueAsInteger(parser, attr);
 				}
 				outputLogOfAttribute(parser, attr);
@@ -97,33 +97,33 @@ public class LifePatternFactory {
 		else {
 			throw new XmlPullParserException("wrong attributes in <life></life>");
 		}
-		
-		for(int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
-			if(isEndTagOf(TAG_LIFE, parser, tag)) {
+
+		for (int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
+			if (isEndTagOf(TAG_LIFE, parser, tag)) {
 				/* </life>で終了 */
 				outputLogOfTagEnd(TAG_LIFE);
 				break;
 			}
-			if(isStartTagOf(TAG_NAME, parser, tag)) {
+			if (isStartTagOf(TAG_NAME, parser, tag)) {
 				/* <name></name>のParse */
 				outputLogOfTagStart(TAG_NAME);
 				tag = parser.next();
-				if(tag == XmlResourceParser.TEXT){
+				if (tag == XmlResourceParser.TEXT) {
 					name = parser.getText();
 					Log.d(TAG, "XML:ELEM_NAME :" + name);
 				}
 				outputLogOfTagEnd(TAG_NAME);
 			}
-			if(isStartTagOf(TAG_PATTERN, parser, tag)) {
+			if (isStartTagOf(TAG_PATTERN, parser, tag)) {
 				/* <pattern>のParse */
 				outputLogOfTagStart(TAG_PATTERN);
-				if( parser.getAttributeCount() == 2 ) {
-					for( int attr = 0; attr < parser.getAttributeCount(); attr++ ) {
+				if (parser.getAttributeCount() == 2) {
+					for (int attr = 0; attr < parser.getAttributeCount(); attr++) {
 						/* 属性取得 */
-						if(isAttributeOf(ATTR_WIDTH, parser, attr)) {
+						if (isAttributeOf(ATTR_WIDTH, parser, attr)) {
 							width = getAttrValueAsInteger(parser, attr);
 						}
-						if(isAttributeOf(ATTR_HEIGHT, parser, attr)) {
+						if (isAttributeOf(ATTR_HEIGHT, parser, attr)) {
 							height = getAttrValueAsInteger(parser, attr);
 						}
 						outputLogOfAttribute(parser, attr);
@@ -139,29 +139,29 @@ public class LifePatternFactory {
 		return new LifePattern(name, type, cells, width, height);
 	}
 
-	private List<Pair<Integer, Integer>> parsePattern(XmlResourceParser parser)
-			throws XmlPullParserException, IOException {
+	private List<Pair<Integer, Integer>> parsePattern(XmlResourceParser parser) throws XmlPullParserException,
+			IOException {
 
 		List<Pair<Integer, Integer>> cells = new ArrayList<Pair<Integer, Integer>>();
 		int x = -1;
 		int y = -1;
-		
-		for(int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
-			if(isEndTagOf(TAG_PATTERN, parser, tag)){
+
+		for (int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
+			if (isEndTagOf(TAG_PATTERN, parser, tag)) {
 				/* </pattern>で終了 */
 				outputLogOfTagEnd(TAG_PATTERN);
 				break;
 			}
-			if(isStartTagOf(TAG_CELL, parser, tag)){
+			if (isStartTagOf(TAG_CELL, parser, tag)) {
 				/* <cell />のParse */
 				outputLogOfTagStart(TAG_CELL);
-				if(parser.getAttributeCount() == 2) {
-					for(int attr = 0; attr < parser.getAttributeCount(); attr++) {
+				if (parser.getAttributeCount() == 2) {
+					for (int attr = 0; attr < parser.getAttributeCount(); attr++) {
 						/* 属性取得 */
-						if(isAttributeOf(ATTR_X, parser, attr)) {
+						if (isAttributeOf(ATTR_X, parser, attr)) {
 							x = getAttrValueAsInteger(parser, attr);
 						}
-						if(isAttributeOf(ATTR_Y, parser, attr)) {
+						if (isAttributeOf(ATTR_Y, parser, attr)) {
 							y = getAttrValueAsInteger(parser, attr);
 						}
 						outputLogOfAttribute(parser, attr);
@@ -189,11 +189,11 @@ public class LifePatternFactory {
 	private boolean isAttributeOf(String attrName, XmlResourceParser parser, int attr) {
 		return attrName.equals(parser.getAttributeName(attr));
 	}
-	
+
 	private Integer getAttrValueAsInteger(XmlResourceParser parser, int attr) {
 		return Integer.valueOf(parser.getAttributeValue(attr));
 	}
-	
+
 	private void outputLogOfTagStart(String tagName) {
 		Log.d(TAG, "XML:ELEM_START: " + tagName);
 	}
@@ -201,9 +201,8 @@ public class LifePatternFactory {
 	private void outputLogOfTagEnd(String tagName) {
 		Log.d(TAG, "XML:ELEM_END: " + tagName);
 	}
-	
+
 	private void outputLogOfAttribute(XmlResourceParser parser, int attr) {
-		Log.d(TAG, "XML:ELEM_ATTR: "
-				+ parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
+		Log.d(TAG, "XML:ELEM_ATTR: " + parser.getAttributeName(attr) + " = " + parser.getAttributeValue(attr));
 	}
 }

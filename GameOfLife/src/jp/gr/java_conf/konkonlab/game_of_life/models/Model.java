@@ -6,17 +6,18 @@ import java.util.ArrayList;
 
 public abstract class Model {
 	private List<ModelListener> listeners = new ArrayList<ModelListener>();
-	public void attachListener(ModelListener listener){
+
+	public void attachListener(ModelListener listener) {
 		listeners.add(listener);
 	}
-	
+
 	public void detachListener(ModelListener listener) {
 		listeners.remove(listener);
 	}
-	
+
 	public void notifyListener() {
 		Iterator<ModelListener> it = listeners.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			it.next().update();
 		}
 	}

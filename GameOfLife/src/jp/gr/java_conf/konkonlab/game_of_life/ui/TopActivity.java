@@ -11,5 +11,5 @@ public class TopActivity extends SherlockActivity {
 		setTheme(R.style.Theme_Sherlock);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-    }
+	}
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class Grid {
 
 	private List<List<Cell>> cellMatrix;
-	
+
 	public Grid(int numX, int numY) {
 		cellMatrix = createCellMatrix(numX, numY);
 		decideGroups();
@@ -21,7 +21,7 @@ public class Grid {
 		cellMatrix = createNextCellMatrix(prevGrid);
 		decideGroups();
 	}
-	
+
 	public Cell getCellAt(int x, int y) {
 		return cellMatrix.get(y).get(x);
 	}
@@ -29,19 +29,19 @@ public class Grid {
 	public Grid createNextGeneration() {
 		return new Grid(this);
 	}
-	
+
 	public int getNumOfNeighborsAt(int x, int y) {
 		int count = 0;
 		for (int targetY = y - 1; targetY <= y + 1; targetY++) {
 			for (int targetX = x - 1; targetX <= x + 1; targetX++) {
-				if(!isCentralCell(x, y, targetX, targetY)) {
+				if (!isCentralCell(x, y, targetX, targetY)) {
 					count += countALiveCell(targetX, targetY);
 				}
 			}
 		}
 		return count;
 	}
-	
+
 	public int getNumX() {
 		return cellMatrix.get(0).size();
 	}
@@ -52,9 +52,9 @@ public class Grid {
 
 	private List<List<Cell>> createCellMatrix(int numX, int numY) {
 		List<List<Cell>> cellMatrix = new ArrayList<List<Cell>>();
-		for(int y = 0; y < numY; y++) {
+		for (int y = 0; y < numY; y++) {
 			cellMatrix.add(new ArrayList<Cell>());
-			for(int x = 0; x < numX; x++) {
+			for (int x = 0; x < numX; x++) {
 				cellMatrix.get(y).add(Cell.createDeadCell());
 			}
 		}
@@ -63,10 +63,10 @@ public class Grid {
 
 	private List<List<Cell>> createCellMatrix(List<List<Boolean>> booleanMatrix) {
 		List<List<Cell>> cellMatrix = new ArrayList<List<Cell>>();
-		for(int y = 0; y < booleanMatrix.size(); y++) {
+		for (int y = 0; y < booleanMatrix.size(); y++) {
 			cellMatrix.add(new ArrayList<Cell>());
-			for(int x = 0; x < booleanMatrix.get(y).size(); x++) {
-				if(booleanMatrix.get(y).get(x)) {
+			for (int x = 0; x < booleanMatrix.get(y).size(); x++) {
+				if (booleanMatrix.get(y).get(x)) {
 					cellMatrix.get(y).add(Cell.createAliveCell());
 				}
 				else {
@@ -76,14 +76,14 @@ public class Grid {
 		}
 		return cellMatrix;
 	}
-	
+
 	private List<List<Cell>> createNextCellMatrix(Grid prevGrid) {
 		List<List<Cell>> cellMatrix = new ArrayList<List<Cell>>();
-		for(int y = 0; y < prevGrid.getNumY(); y++) {
+		for (int y = 0; y < prevGrid.getNumY(); y++) {
 			cellMatrix.add(new ArrayList<Cell>());
-			for ( int x = 0; x < prevGrid.getNumX(); x++) {
-				cellMatrix.get(y).add(
-						prevGrid.getCellAt(x, y).createNextGeneration(prevGrid.getNumOfNeighborsAt(x, y)));
+			for (int x = 0; x < prevGrid.getNumX(); x++) {
+				cellMatrix.get(y)
+						.add(prevGrid.getCellAt(x, y).createNextGeneration(prevGrid.getNumOfNeighborsAt(x, y)));
 			}
 		}
 		return cellMatrix;
@@ -92,13 +92,13 @@ public class Grid {
 	private boolean isCentralCell(int centerX, int centerY, int x, int y) {
 		return (x == centerX && y == centerY);
 	}
-	
+
 	private boolean isOutOfBoundsInCellMatrix(int x, int y) {
 		return (x < 0 || x >= getNumX() || y < 0 || y >= getNumY());
 	}
-	
-	private int countALiveCell( int x, int y ) {
-		if(isOutOfBoundsInCellMatrix(x, y)) {
+
+	private int countALiveCell(int x, int y) {
+		if (isOutOfBoundsInCellMatrix(x, y)) {
 			return 0;
 		}
 		else {
@@ -107,8 +107,8 @@ public class Grid {
 	}
 
 	private void decideGroups() {
-		for(int y = 0; y < this.getNumY(); y++) {
-			for ( int x = 0; x < this.getNumX(); x++) {
+		for (int y = 0; y < this.getNumY(); y++) {
+			for (int x = 0; x < this.getNumX(); x++) {
 				this.getCellAt(x, y).decideGroup(this.getNumOfNeighborsAt(x, y));
 			}
 		}
