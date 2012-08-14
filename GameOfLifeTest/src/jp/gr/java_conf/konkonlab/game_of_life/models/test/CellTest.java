@@ -16,12 +16,10 @@ public class CellTest extends TestCase {
 	}
 	
 	public void testInitAlive() throws Exception {
-		assertEquals("ALIVE", aliveCell.toString());
 		assertTrue(aliveCell.isAlive());
 	}
 
 	public void testInitDead() throws Exception {
-		assertEquals("DEAD", deadCell.toString());
 		assertFalse(deadCell.isAlive());
 	}
 	

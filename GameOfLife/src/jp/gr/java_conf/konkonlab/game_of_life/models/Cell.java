@@ -22,13 +22,7 @@ public class Cell {
 
 	@Override
 	public String toString() {
-		return status;
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		Cell another = (Cell) object;
-		return status.equals(another.status);
+		return "Cell [status: " + status + ", group: " + group + " (age: " + age + ")]";
 	}
 
 	public boolean isAlive() {
