@@ -10,21 +10,24 @@ import android.util.Pair;
 public class LifePattern {
 	/* Constant for type of life patterns */
 	/* @formatter:off */
-	public static final int TYPE_STILL_LIFE      = 1;
-	public static final int TYPE_OSCILLATOR      = 2;
-	public static final int TYPE_SPACESHIP       = 3;
-	public static final int TYPE_INFINITE_GROWTH = 4;
-	public static final int TYPE_METHUSELAH      = 5;
+	public static final int TYPE_STILL_LIFE      =  1;
+	public static final int TYPE_OSCILLATOR      =  2;
+	public static final int TYPE_SPACESHIP       =  3;
+	public static final int TYPE_INFINITE_GROWTH =  4;
+	public static final int TYPE_METHUSELAH      =  5;
+	public static final int TYPE_INVALID_LIFE    = -1;
 	/* @formatter:on */
 
 	private String name;
 	private int type;
+	private int number;
 
 	private List<List<Boolean>> cellMatrix;
 
-	public LifePattern(String name, int type, List<Pair<Integer, Integer>> cells, int x, int y) {
+	public LifePattern(int number, int type, String name, List<Pair<Integer, Integer>> cells, int x, int y) {
 		this.name = name;
 		this.type = type;
+		this.number = number;
 		this.cellMatrix = createCellMatrix(cells, x, y);
 	}
 
@@ -38,6 +41,10 @@ public class LifePattern {
 
 	public int getType() {
 		return type;
+	}
+
+	public int getNumber() {
+		return number;
 	}
 
 	public int getNumCellX() {

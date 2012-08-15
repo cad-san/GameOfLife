@@ -13,6 +13,7 @@ public class LifePatternTest extends TestCase {
 	public void testBlock() throws Exception {
 		String name = new String("Block");
 		int type = LifePattern.TYPE_STILL_LIFE;
+		int number = 1;
 		int numCellX = 2;
 		int numCellY = 2;
 		
@@ -21,10 +22,11 @@ public class LifePatternTest extends TestCase {
 		};
 		List<Pair<Integer, Integer>> cells = createCellList(pairs);
 		
-		LifePattern life = new LifePattern(name,type,cells,numCellX,numCellY);
+		LifePattern life = new LifePattern(number,type,name,cells,numCellX, numCellY);
 		
 		assertEquals(name, life.getName());
 		assertEquals(type, life.getType());
+		assertEquals(number, life.getNumber());
 		assertCellSize(life, numCellX, numCellY);
 		assertCellList(pairs, life);
 	}

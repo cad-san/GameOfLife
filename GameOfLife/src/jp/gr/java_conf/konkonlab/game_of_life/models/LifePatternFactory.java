@@ -2,7 +2,6 @@ package jp.gr.java_conf.konkonlab.game_of_life.models;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -29,6 +28,16 @@ public class LifePatternFactory {
 
 	private List<XmlResourceParser> parsers = new ArrayList<XmlResourceParser>();
 	private List<List<LifePattern>> patterns = new ArrayList<List<LifePattern>>();
+
+	private class LifeStatus {
+		private int number = -1;
+		private int type = LifePattern.TYPE_INVALID_LIFE;
+	}
+
+	private class CellStatus {
+		public int width = -1;
+		public int height = -1;
+	}
 
 	public void addParser(XmlResourceParser parser) {
 		if (parser == null)
@@ -76,23 +85,12 @@ public class LifePatternFactory {
 	private LifePattern parseLife(XmlResourceParser parser) throws XmlPullParserException, IOException {
 
 		String name = "";
-		int number = -1;
-		int type = 0;
-		int width = 0;
-		int height = 0;
+		LifeStatus lifeStatus = null;
+		CellStatus cellStatus = null;
 		List<Pair<Integer, Integer>> cells = null;
 
 		if (parser.getAttributeCount() == 2) {
-			for (int attr = 0; attr < parser.getAttributeCount(); attr++) {
-				/* 属性取得 */
-				if (isAttributeOf(ATTR_NUM, parser, attr)) {
-					number = getAttrValueAsInteger(parser, attr);
-				}
-				if (isAttributeOf(ATTR_TYPE, parser, attr)) {
-					type = getAttrValueAsInteger(parser, attr);
-				}
-				outputLogOfAttribute(parser, attr);
-			}
+			lifeStatus = parseLifeAttr(parser);
 		}
 		else {
 			throw new XmlPullParserException("wrong attributes in <life></life>");
@@ -118,16 +116,7 @@ public class LifePatternFactory {
 				/* <pattern>のParse */
 				outputLogOfTagStart(TAG_PATTERN);
 				if (parser.getAttributeCount() == 2) {
-					for (int attr = 0; attr < parser.getAttributeCount(); attr++) {
-						/* 属性取得 */
-						if (isAttributeOf(ATTR_WIDTH, parser, attr)) {
-							width = getAttrValueAsInteger(parser, attr);
-						}
-						if (isAttributeOf(ATTR_HEIGHT, parser, attr)) {
-							height = getAttrValueAsInteger(parser, attr);
-						}
-						outputLogOfAttribute(parser, attr);
-					}
+					cellStatus = parsePatternAttr(parser);
 				}
 				else {
 					throw new XmlPullParserException("wrong attributes in <pattern></pattern>");
@@ -136,15 +125,13 @@ public class LifePatternFactory {
 			}
 		}
 		Log.d(TAG, "Life Pattern parsed :" + name);
-		return new LifePattern(name, type, cells, width, height);
+		return new LifePattern(lifeStatus.number, lifeStatus.type, name, cells, cellStatus.width, cellStatus.height);
 	}
 
 	private List<Pair<Integer, Integer>> parsePattern(XmlResourceParser parser) throws XmlPullParserException,
 			IOException {
 
 		List<Pair<Integer, Integer>> cells = new ArrayList<Pair<Integer, Integer>>();
-		int x = -1;
-		int y = -1;
 
 		for (int tag = parser.getEventType(); tag != XmlResourceParser.END_DOCUMENT; tag = parser.next()) {
 			if (isEndTagOf(TAG_PATTERN, parser, tag)) {
@@ -156,26 +143,61 @@ public class LifePatternFactory {
 				/* <cell />のParse */
 				outputLogOfTagStart(TAG_CELL);
 				if (parser.getAttributeCount() == 2) {
-					for (int attr = 0; attr < parser.getAttributeCount(); attr++) {
-						/* 属性取得 */
-						if (isAttributeOf(ATTR_X, parser, attr)) {
-							x = getAttrValueAsInteger(parser, attr);
-						}
-						if (isAttributeOf(ATTR_Y, parser, attr)) {
-							y = getAttrValueAsInteger(parser, attr);
-						}
-						outputLogOfAttribute(parser, attr);
-					}
-					cells.add(new Pair<Integer, Integer>(x, y));
+					cells.add(parseCellAttr(parser));
 				}
 				else {
 					throw new XmlPullParserException("wrong attribute in <cell />");
 				}
 				outputLogOfTagEnd(TAG_CELL);
-				Log.d(TAG, "cell: " + x + ", " + y);
 			}
 		}
 		return cells;
+	}
+
+	private LifeStatus parseLifeAttr(XmlResourceParser parser) {
+		LifeStatus lifeStatus = new LifeStatus();
+		for (int attr = 0; attr < parser.getAttributeCount(); attr++) {
+			/* 属性取得 */
+			if (isAttributeOf(ATTR_NUM, parser, attr)) {
+				lifeStatus.number = getAttrValueAsInteger(parser, attr);
+			}
+			if (isAttributeOf(ATTR_TYPE, parser, attr)) {
+				lifeStatus.type = getAttrValueAsInteger(parser, attr);
+			}
+			outputLogOfAttribute(parser, attr);
+		}
+		return lifeStatus;
+	}
+
+	private CellStatus parsePatternAttr(XmlResourceParser parser) {
+		CellStatus cellStatus = new CellStatus();
+		for (int attr = 0; attr < parser.getAttributeCount(); attr++) {
+			/* 属性取得 */
+			if (isAttributeOf(ATTR_WIDTH, parser, attr)) {
+				cellStatus.width = getAttrValueAsInteger(parser, attr);
+			}
+			if (isAttributeOf(ATTR_HEIGHT, parser, attr)) {
+				cellStatus.height = getAttrValueAsInteger(parser, attr);
+			}
+			outputLogOfAttribute(parser, attr);
+		}
+		return cellStatus;
+	}
+
+	private Pair<Integer, Integer> parseCellAttr(XmlResourceParser parser) {
+		int x = -1;
+		int y = -1;
+		for (int attr = 0; attr < parser.getAttributeCount(); attr++) {
+			/* 属性取得 */
+			if (isAttributeOf(ATTR_X, parser, attr)) {
+				x = getAttrValueAsInteger(parser, attr);
+			}
+			if (isAttributeOf(ATTR_Y, parser, attr)) {
+				y = getAttrValueAsInteger(parser, attr);
+			}
+			outputLogOfAttribute(parser, attr);
+		}
+		return new Pair<Integer, Integer>(x, y);
 	}
 
 	private boolean isEndTagOf(String tagName, XmlResourceParser parser, int tagType) {
