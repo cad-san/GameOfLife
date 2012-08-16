@@ -7,14 +7,14 @@ public class CellTest extends TestCase {
 
 	Cell deadCell;
 	Cell aliveCell;
-	
+
 	@Override
 	protected void setUp() throws Exception {
 		deadCell = Cell.createDeadCell();
 		aliveCell = Cell.createAliveCell();
 		super.setUp();
 	}
-	
+
 	public void testInitAlive() throws Exception {
 		assertTrue(aliveCell.isAlive());
 	}
@@ -22,27 +22,27 @@ public class CellTest extends TestCase {
 	public void testInitDead() throws Exception {
 		assertFalse(deadCell.isAlive());
 	}
-	
+
 	public void testGroupArive() throws Exception {
 		aliveCell.setGroup(1);
 		assertEquals(1, aliveCell.getGroup());
 	}
-	
+
 	public void testGroupDead() throws Exception {
 		deadCell.setGroup(1); // ignored
 		assertEquals(-1, deadCell.getGroup());
 	}
-	
+
 	public void testCreateNextGenerationStillDead() throws Exception {
 		Cell nextGenCell = deadCell.createNextGeneration(2);
 		assertFalse(nextGenCell.isAlive());
 	}
-	
+
 	public void testCreateNextGenerationBirth() throws Exception {
 		Cell nextGenCell = deadCell.createNextGeneration(3);
 		assertTrue(nextGenCell.isAlive());
 	}
-	
+
 	public void testCreateNextGenerationExist() throws Exception {
 		Cell nextGenCell = aliveCell.createNextGeneration(3);
 		assertTrue(nextGenCell.isAlive());
@@ -57,21 +57,21 @@ public class CellTest extends TestCase {
 		Cell nextGenCell = aliveCell.createNextGeneration(4);
 		assertFalse(nextGenCell.isAlive());
 	}
-	
+
 	public void test0YearsOld() throws Exception {
-		assertEquals(0, aliveCell.getAge() );
+		assertEquals(0, aliveCell.getAge());
 	}
-	
+
 	public void test1YearsOld() throws Exception {
 		Cell oneYearsOldCell = aliveCell.createNextGeneration(3);
-		assertEquals(1, oneYearsOldCell.getAge() );
+		assertEquals(1, oneYearsOldCell.getAge());
 	}
-	
+
 	public void test2YearsOld() throws Exception {
 		Cell twoYearsOldCell = aliveCell.createNextGeneration(3).createNextGeneration(2);
-		assertEquals(2, twoYearsOldCell.getAge() );
+		assertEquals(2, twoYearsOldCell.getAge());
 	}
-	
+
 	public void testCalcGroupBirth() throws Exception {
 		aliveCell.decideGroup(3);
 		assertEquals(0, aliveCell.getGroup());
@@ -85,7 +85,7 @@ public class CellTest extends TestCase {
 
 	public void testCalcGroupAdalt() throws Exception {
 		Cell fiveYearsOldCell = aliveCell;
-		for(int i = 0; i < 5; i++) {
+		for (int i = 0; i < 5; i++) {
 			fiveYearsOldCell = fiveYearsOldCell.createNextGeneration(3);
 		}
 		fiveYearsOldCell.decideGroup(3);

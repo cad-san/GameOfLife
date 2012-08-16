@@ -39,23 +39,27 @@ public class LifePatternFactoryTest extends ActivityInstrumentationTestCase2<Top
 	public void testBlock() throws Exception {
 		lifePatterns = parseLifePatterns();
 		LifePattern lifePattern = lifePatterns.get(0).get(0);
-		int[][] cells = {
+		/* @formatter:off */
+		int[][] blockCells = {
 				{0,0}, {0,1}, {1,0}, {1,1}
 		};
+		/* @formatter:on */
 
 		assertEquals("Block", lifePattern.getName());
 		assertEquals(LifePattern.TYPE_STILL_LIFE, lifePattern.getType());
 
 		LifePatternTest.assertCellSize(lifePattern, 2, 2);
-		LifePatternTest.assertCellList(cells, lifePattern);
+		LifePatternTest.assertCellList(blockCells, lifePattern);
 	}
 	
 	public void testMultiLife() throws Exception {
 		lifePatterns = parseLifePatterns();
 		LifePattern lifeBeehive = lifePatterns.get(0).get(1);
+		/* @formatter:off */
 		int[][] beehiveCells = {
 				{1,0}, {2,0}, {0,1}, {3,1}, {1,2}, {2,2}
 		};
+		/* @formatter:on */
 
 		assertEquals("Beehive", lifeBeehive.getName());
 		assertEquals(LifePattern.TYPE_STILL_LIFE, lifeBeehive.getType());
@@ -67,9 +71,12 @@ public class LifePatternFactoryTest extends ActivityInstrumentationTestCase2<Top
 	public void testMutipleParser() throws Exception {
 		lifePatterns = parseLifePatterns();
 		LifePattern lifeBlinker = lifePatterns.get(1).get(0);
+		/* @formatter:off */
 		int[][] blinkerCells = {
 				{1,0}, {1,1}, {1,2}
 		};
+		/* @formatter:on */
+
 		assertEquals("Blinker", lifeBlinker.getName());
 		assertEquals(LifePattern.TYPE_OSCILLATOR, lifeBlinker.getType());
 
