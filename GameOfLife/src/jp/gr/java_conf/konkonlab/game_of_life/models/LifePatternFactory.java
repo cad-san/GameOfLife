@@ -2,6 +2,7 @@ package jp.gr.java_conf.konkonlab.game_of_life.models;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -39,11 +40,12 @@ public class LifePatternFactory {
 		public int height = -1;
 	}
 
-	public void addParser(XmlResourceParser parser) {
+	public boolean addParser(XmlResourceParser parser) {
 		if (parser == null)
-			return;
+			return false;
 
 		parsers.add(parser);
+		return true;
 	}
 
 	public void parse() {
@@ -57,11 +59,14 @@ public class LifePatternFactory {
 			catch (IOException e) {
 				e.printStackTrace();
 			}
+			finally {
+				parser.close();
+			}
 		}
 	}
 
 	public List<List<LifePattern>> getLifePatterns() {
-		return patterns;
+		return Collections.unmodifiableList(patterns);
 	}
 
 	private List<LifePattern> parseLifePatternsFromXML(XmlResourceParser parser) throws XmlPullParserException,
